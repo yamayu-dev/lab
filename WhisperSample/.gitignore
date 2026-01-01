@@ -1,0 +1,31 @@
+# .NET / Visual Studio
+bin/
+obj/
+[Bb]uild/
+[Dd]ebug/
+[Rr]elease/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+
+# Rider
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Certificates / signing related (do not commit)
+*.pfx
+*.p12
+*.cer
+*.mobileprovision
+
+# MAUI / platform artifacts
+Platforms/**/bin/
+Platforms/**/obj/

@@ -1,0 +1,114 @@
+*.bin
+# Xcode build artifacts
+build/
+DerivedData/
+
+# Xcode workspace/user settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+*.xccheckout
+*.moved-aside
+*.xcuserstate
+*.xcscmblueprint
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.pins
+Package.resolved
+
+# CocoaPods
+Pods/
+
+# Carthage
+Carthage/Build/
+Carthage/Checkouts/
+
+# Accio dependency manager
+Dependencies/
+.accio/
+
+# Fastlane reports and screenshots
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# Artefacts
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Misc
+*.hmap
+*.lock
+*.icloud
+*.swp
+iOSInjectionProject/
+.DS_Store
+
+# Visual Studio / .NET / C# MAUI (added)
+# Visual Studio workspace and settings
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.userprefs
+*.sln.docstates
+
+# Build outputs
+[Bb]in/
+[Oo]bj/
+**/bin/
+**/obj/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+
+# NuGet / packages
+packages/
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# JetBrains Rider
+.idea/
+
+# ReSharper
+_ReSharper*/
+*.DotSettings.user
+
+# MAUI / Xamarin / platform-specific artifacts
+# iOS / macOS
+*.mobileprovision
+*.cer
+*.p12
+*.key
+*.entitlements
+
+# Android
+*.keystore
+*.keystore.*
+*.apk
+*.ap_
+*.aar
+.gradle/
+local.properties
+
+# Publish / intermediate artifacts
+publish/
