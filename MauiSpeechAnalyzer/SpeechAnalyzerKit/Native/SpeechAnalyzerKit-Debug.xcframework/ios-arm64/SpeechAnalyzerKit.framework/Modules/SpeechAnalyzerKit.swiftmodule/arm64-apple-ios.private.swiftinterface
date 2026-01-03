@@ -1,0 +1,89 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.2.1 effective-5.10 (swiftlang-6.2.1.4.8 clang-1700.4.4.1)
+// swift-module-flags: -target arm64-apple-ios26.1 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name SpeechAnalyzerKit
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2.1
+import AVFoundation
+import CoreMedia
+import Foundation
+import Speech
+import Swift
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@_inheritsConvenienceInitializers @_Concurrency.MainActor @objc(AudioRecorder) final public class AudioRecorder : ObjectiveC.NSObject {
+  @objc @_Concurrency.MainActor final public var audioFileURL: Foundation.URL?
+  @objc @_Concurrency.MainActor final public var audioDisplayName: Swift.String
+  @objc @_Concurrency.MainActor final public var isRecording: Swift.Bool {
+    @objc get
+  }
+  @_Concurrency.MainActor @objc override dynamic public init()
+  @objc @_Concurrency.MainActor final public func startRecording() throws
+  @objc @_Concurrency.MainActor final public func stopRecording()
+  @objc @_Concurrency.MainActor final public func deleteAudio()
+  @objc @_Concurrency.MainActor final public func setAudio(from url: Foundation.URL) throws
+  @objc @_Concurrency.MainActor final public var suggestedExportFileName: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @available(iOS 26.0, *)
+@_Concurrency.MainActor @objc(SpeechAnalyzerEngine) final public class SpeechAnalyzerEngine : ObjectiveC.NSObject {
+  @objc @_Concurrency.MainActor final public var formatInfo: Swift.String {
+    @objc get
+  }
+  @_Concurrency.MainActor @objc override dynamic public init()
+  @_Concurrency.MainActor final public func startRealtime(locale: Foundation.Locale, prefix: Swift.String = "", onResult: @escaping (SpeechAnalyzerKit.TranscriptSnapshot) -> Swift.Void, onError: @escaping (Swift.String) -> Swift.Void)
+  @objc @_Concurrency.MainActor final public func stop()
+  #if compiler(>=5.3) && $AsyncExecutionBehaviorAttributes
+  nonisolated(nonsending) final public func transcribeFile(url: Foundation.URL, locale: Foundation.Locale, prefix: Swift.String = "", onResult: @escaping @_Concurrency.MainActor @Sendable (SpeechAnalyzerKit.TranscriptSnapshot) -> Swift.Void, onFormatInfo: @escaping @_Concurrency.MainActor @Sendable (Swift.String) -> Swift.Void, onComplete: @escaping @_Concurrency.MainActor @Sendable (Swift.String) -> Swift.Void, onError: @escaping @_Concurrency.MainActor @Sendable (Swift.String) -> Swift.Void) async
+  #endif
+  @_Concurrency.MainActor public static func assetStatus(locale: Foundation.Locale, preset: Speech.SpeechTranscriber.Preset) async -> Speech.AssetInventory.Status
+  @_Concurrency.MainActor public static func downloadAssets(locale: Foundation.Locale, preset: Speech.SpeechTranscriber.Preset, onProgress: @escaping @_Concurrency.MainActor @Sendable (Swift.Double) -> Swift.Void) async throws
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc(SpeechAnalyzerKitHelper) final public class SpeechAnalyzerKitHelper : ObjectiveC.NSObject {
+  @objc public static var authorizationStatus: Speech.SFSpeechRecognizerAuthorizationStatus {
+    @objc get
+  }
+  @objc public static func requestAuthorization(completion: @escaping (Speech.SFSpeechRecognizerAuthorizationStatus) -> Swift.Void)
+  @available(iOS 17.0, *)
+  @objc public static func requestRecordPermission(completion: @escaping (Swift.Bool) -> Swift.Void)
+  @objc public static func requestRecordPermissionLegacy(completion: @escaping (Swift.Bool) -> Swift.Void)
+  @available(iOS 26.0, *)
+  @_Concurrency.MainActor public static func createEngine() -> SpeechAnalyzerKit.SpeechAnalyzerEngine
+  @_Concurrency.MainActor @objc public static func createAudioRecorder() -> SpeechAnalyzerKit.AudioRecorder
+  @objc public static func availableLocales() -> [Foundation.Locale]
+  @objc public static func isLocaleSupported(_ locale: Foundation.Locale) -> Swift.Bool
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @available(iOS 26.0, *)
+@_Concurrency.MainActor @objc(SpeechAnalyzerWrapper) final public class SpeechAnalyzerWrapper : ObjectiveC.NSObject {
+  public typealias ResultCallback = @Sendable (SpeechAnalyzerKit.TranscriptSnapshot) -> Swift.Void
+  public typealias ErrorCallback = @Sendable (Swift.String) -> Swift.Void
+  public typealias StringCallback = @Sendable (Swift.String) -> Swift.Void
+  @_Concurrency.MainActor @objc override dynamic public init()
+  @objc @_Concurrency.MainActor final public func startRealtimeWithLocaleIdentifier(_ localeIdentifier: Swift.String, prefix: Swift.String, onResult: @escaping SpeechAnalyzerKit.SpeechAnalyzerWrapper.ResultCallback, onError: @escaping SpeechAnalyzerKit.SpeechAnalyzerWrapper.ErrorCallback)
+  @objc @_Concurrency.MainActor final public func stop()
+  @objc @_Concurrency.MainActor final public func transcribeFileAtPath(_ path: Swift.String, localeIdentifier: Swift.String, prefix: Swift.String, onResult: @escaping SpeechAnalyzerKit.SpeechAnalyzerWrapper.ResultCallback, onFormatInfo: @escaping SpeechAnalyzerKit.SpeechAnalyzerWrapper.StringCallback, onComplete: @escaping SpeechAnalyzerKit.SpeechAnalyzerWrapper.StringCallback, onError: @escaping SpeechAnalyzerKit.SpeechAnalyzerWrapper.ErrorCallback)
+  @objc @_Concurrency.MainActor final public var formatInfo: Swift.String {
+    @objc get
+  }
+  @objc @_Concurrency.MainActor public static func checkAssetStatusForJapanese(preset: Swift.Int, completion: @escaping (Swift.Int) -> Swift.Void)
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc @_Concurrency.MainActor public static func downloadAssetsForJapanese(preset: Swift.Int, onProgress: @escaping @Sendable (Swift.Double) -> Swift.Void, onError: @escaping @Sendable (Swift.String?) -> Swift.Void)
+  #endif
+  @objc deinit
+}
+@objc(TranscriptSnapshot) public class TranscriptSnapshot : ObjectiveC.NSObject {
+  @objc final public let confirmedText: Swift.String
+  @objc final public let pendingText: Swift.String
+  @objc final public let combinedText: Swift.String
+  @objc public init(confirmedText: Swift.String, pendingText: Swift.String, combinedText: Swift.String)
+  @objc deinit
+}
+extension SpeechAnalyzerKit.AudioRecorder : Swift.Sendable {}
+@available(iOS 26.0, *)
+extension SpeechAnalyzerKit.SpeechAnalyzerEngine : Swift.Sendable {}
+@available(iOS 26.0, *)
+extension SpeechAnalyzerKit.SpeechAnalyzerWrapper : Swift.Sendable {}

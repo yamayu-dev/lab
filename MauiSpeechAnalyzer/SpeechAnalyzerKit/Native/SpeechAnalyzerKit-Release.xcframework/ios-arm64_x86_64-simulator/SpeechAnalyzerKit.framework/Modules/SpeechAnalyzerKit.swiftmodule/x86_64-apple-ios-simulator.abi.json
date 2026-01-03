@@ -1,0 +1,2426 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "SpeechAnalyzerKit",
+    "printedName": "SpeechAnalyzerKit",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "SpeechAnalyzerKit"
+      },
+      {
+        "kind": "Import",
+        "name": "AVFoundation",
+        "printedName": "AVFoundation",
+        "declKind": "Import",
+        "moduleName": "SpeechAnalyzerKit",
+        "declAttributes": [
+          "Preconcurrency"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "AudioRecorder",
+        "printedName": "AudioRecorder",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "audioFileURL",
+            "printedName": "audioFileURL",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.URL?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "URL",
+                    "printedName": "Foundation.URL",
+                    "usr": "s:10Foundation3URLV"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)AudioRecorder(py)audioFileURL",
+            "mangledName": "$s17SpeechAnalyzerKit13AudioRecorderC12audioFileURL10Foundation0H0VSgvp",
+            "moduleName": "SpeechAnalyzerKit",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "Custom",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Foundation.URL?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "URL",
+                        "printedName": "Foundation.URL",
+                        "usr": "s:10Foundation3URLV"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@SpeechAnalyzerKit@objc(cs)AudioRecorder(im)audioFileURL",
+                "mangledName": "$s17SpeechAnalyzerKit13AudioRecorderC12audioFileURL10Foundation0H0VSgvg",
+                "moduleName": "SpeechAnalyzerKit",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Foundation.URL?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "URL",
+                        "printedName": "Foundation.URL",
+                        "usr": "s:10Foundation3URLV"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@SpeechAnalyzerKit@objc(cs)AudioRecorder(im)setAudioFileURL:",
+                "mangledName": "$s17SpeechAnalyzerKit13AudioRecorderC12audioFileURL10Foundation0H0VSgvs",
+                "moduleName": "SpeechAnalyzerKit",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:17SpeechAnalyzerKit13AudioRecorderC12audioFileURL10Foundation0H0VSgvM",
+                "mangledName": "$s17SpeechAnalyzerKit13AudioRecorderC12audioFileURL10Foundation0H0VSgvM",
+                "moduleName": "SpeechAnalyzerKit",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "audioDisplayName",
+            "printedName": "audioDisplayName",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)AudioRecorder(py)audioDisplayName",
+            "mangledName": "$s17SpeechAnalyzerKit13AudioRecorderC16audioDisplayNameSSvp",
+            "moduleName": "SpeechAnalyzerKit",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "Custom",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@SpeechAnalyzerKit@objc(cs)AudioRecorder(im)audioDisplayName",
+                "mangledName": "$s17SpeechAnalyzerKit13AudioRecorderC16audioDisplayNameSSvg",
+                "moduleName": "SpeechAnalyzerKit",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@SpeechAnalyzerKit@objc(cs)AudioRecorder(im)setAudioDisplayName:",
+                "mangledName": "$s17SpeechAnalyzerKit13AudioRecorderC16audioDisplayNameSSvs",
+                "moduleName": "SpeechAnalyzerKit",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:17SpeechAnalyzerKit13AudioRecorderC16audioDisplayNameSSvM",
+                "mangledName": "$s17SpeechAnalyzerKit13AudioRecorderC16audioDisplayNameSSvM",
+                "moduleName": "SpeechAnalyzerKit",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "isRecording",
+            "printedName": "isRecording",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)AudioRecorder(py)isRecording",
+            "mangledName": "$s17SpeechAnalyzerKit13AudioRecorderC11isRecordingSbvp",
+            "moduleName": "SpeechAnalyzerKit",
+            "declAttributes": [
+              "Final",
+              "Custom",
+              "AccessControl",
+              "ObjC"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@SpeechAnalyzerKit@objc(cs)AudioRecorder(im)isRecording",
+                "mangledName": "$s17SpeechAnalyzerKit13AudioRecorderC11isRecordingSbvg",
+                "moduleName": "SpeechAnalyzerKit",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "AudioRecorder",
+                "printedName": "SpeechAnalyzerKit.AudioRecorder",
+                "usr": "c:@M@SpeechAnalyzerKit@objc(cs)AudioRecorder"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)AudioRecorder(im)init",
+            "mangledName": "$s17SpeechAnalyzerKit13AudioRecorderCACycfc",
+            "moduleName": "SpeechAnalyzerKit",
+            "overriding": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "startRecording",
+            "printedName": "startRecording()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)AudioRecorder(im)startRecordingAndReturnError:",
+            "mangledName": "$s17SpeechAnalyzerKit13AudioRecorderC14startRecordingyyKF",
+            "moduleName": "SpeechAnalyzerKit",
+            "objc_name": "startRecordingAndReturnError:",
+            "declAttributes": [
+              "Final",
+              "Custom",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "stopRecording",
+            "printedName": "stopRecording()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)AudioRecorder(im)stopRecording",
+            "mangledName": "$s17SpeechAnalyzerKit13AudioRecorderC13stopRecordingyyF",
+            "moduleName": "SpeechAnalyzerKit",
+            "declAttributes": [
+              "Final",
+              "Custom",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "deleteAudio",
+            "printedName": "deleteAudio()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)AudioRecorder(im)deleteAudio",
+            "mangledName": "$s17SpeechAnalyzerKit13AudioRecorderC06deleteD0yyF",
+            "moduleName": "SpeechAnalyzerKit",
+            "declAttributes": [
+              "Final",
+              "Custom",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "setAudio",
+            "printedName": "setAudio(from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)AudioRecorder(im)setAudioFrom:error:",
+            "mangledName": "$s17SpeechAnalyzerKit13AudioRecorderC03setD04fromy10Foundation3URLV_tKF",
+            "moduleName": "SpeechAnalyzerKit",
+            "objc_name": "setAudioFrom:error:",
+            "declAttributes": [
+              "Final",
+              "Custom",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "suggestedExportFileName",
+            "printedName": "suggestedExportFileName",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)AudioRecorder(py)suggestedExportFileName",
+            "mangledName": "$s17SpeechAnalyzerKit13AudioRecorderC23suggestedExportFileNameSSvp",
+            "moduleName": "SpeechAnalyzerKit",
+            "declAttributes": [
+              "Final",
+              "Custom",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@SpeechAnalyzerKit@objc(cs)AudioRecorder(im)suggestedExportFileName",
+                "mangledName": "$s17SpeechAnalyzerKit13AudioRecorderC23suggestedExportFileNameSSvg",
+                "moduleName": "SpeechAnalyzerKit",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@SpeechAnalyzerKit@objc(cs)AudioRecorder",
+        "mangledName": "$s17SpeechAnalyzerKit13AudioRecorderC",
+        "moduleName": "SpeechAnalyzerKit",
+        "objc_name": "AudioRecorder",
+        "declAttributes": [
+          "Final",
+          "AccessControl",
+          "ObjC",
+          "Custom",
+          "RawDocComment"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "SpeechAnalyzerKit"
+      },
+      {
+        "kind": "Import",
+        "name": "Speech",
+        "printedName": "Speech",
+        "declKind": "Import",
+        "moduleName": "SpeechAnalyzerKit"
+      },
+      {
+        "kind": "Import",
+        "name": "AVFoundation",
+        "printedName": "AVFoundation",
+        "declKind": "Import",
+        "moduleName": "SpeechAnalyzerKit",
+        "declAttributes": [
+          "Preconcurrency"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "CoreMedia",
+        "printedName": "CoreMedia",
+        "declKind": "Import",
+        "moduleName": "SpeechAnalyzerKit"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SpeechAnalyzerEngine",
+        "printedName": "SpeechAnalyzerEngine",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "formatInfo",
+            "printedName": "formatInfo",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerEngine(py)formatInfo",
+            "mangledName": "$s17SpeechAnalyzerKit0aB6EngineC10formatInfoSSvp",
+            "moduleName": "SpeechAnalyzerKit",
+            "declAttributes": [
+              "Final",
+              "Custom",
+              "AccessControl",
+              "ObjC"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerEngine(im)formatInfo",
+                "mangledName": "$s17SpeechAnalyzerKit0aB6EngineC10formatInfoSSvg",
+                "moduleName": "SpeechAnalyzerKit",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SpeechAnalyzerEngine",
+                "printedName": "SpeechAnalyzerKit.SpeechAnalyzerEngine",
+                "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerEngine"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerEngine(im)init",
+            "mangledName": "$s17SpeechAnalyzerKit0aB6EngineCACycfc",
+            "moduleName": "SpeechAnalyzerKit",
+            "overriding": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "startRealtime",
+            "printedName": "startRealtime(locale:prefix:onResult:onError:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Locale",
+                "printedName": "Foundation.Locale",
+                "usr": "s:10Foundation6LocaleV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "hasDefaultArg": true,
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(SpeechAnalyzerKit.TranscriptSnapshot) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "TranscriptSnapshot",
+                    "printedName": "SpeechAnalyzerKit.TranscriptSnapshot",
+                    "usr": "c:@M@SpeechAnalyzerKit@objc(cs)TranscriptSnapshot"
+                  }
+                ]
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.String) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17SpeechAnalyzerKit0aB6EngineC13startRealtime6locale6prefix8onResult0I5Errory10Foundation6LocaleV_SSyAA18TranscriptSnapshotCcySSctF",
+            "mangledName": "$s17SpeechAnalyzerKit0aB6EngineC13startRealtime6locale6prefix8onResult0I5Errory10Foundation6LocaleV_SSyAA18TranscriptSnapshotCcySSctF",
+            "moduleName": "SpeechAnalyzerKit",
+            "declAttributes": [
+              "Final",
+              "Custom",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "stop",
+            "printedName": "stop()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerEngine(im)stop",
+            "mangledName": "$s17SpeechAnalyzerKit0aB6EngineC4stopyyF",
+            "moduleName": "SpeechAnalyzerKit",
+            "declAttributes": [
+              "Final",
+              "Custom",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "transcribeFile",
+            "printedName": "transcribeFile(url:locale:prefix:onResult:onFormatInfo:onComplete:onError:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Locale",
+                "printedName": "Foundation.Locale",
+                "usr": "s:10Foundation6LocaleV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "hasDefaultArg": true,
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(SpeechAnalyzerKit.TranscriptSnapshot) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "TranscriptSnapshot",
+                    "printedName": "SpeechAnalyzerKit.TranscriptSnapshot",
+                    "usr": "c:@M@SpeechAnalyzerKit@objc(cs)TranscriptSnapshot"
+                  }
+                ]
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.String) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ]
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.String) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ]
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.String) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17SpeechAnalyzerKit0aB6EngineC14transcribeFile3url6locale6prefix8onResult0J10FormatInfo0J8Complete0J5Errory10Foundation3URLV_AL6LocaleVSSyAA18TranscriptSnapshotCYbScMYccySSYbScMYccySSYbScMYccySSYbScMYcctYaF",
+            "mangledName": "$s17SpeechAnalyzerKit0aB6EngineC14transcribeFile3url6locale6prefix8onResult0J10FormatInfo0J8Complete0J5Errory10Foundation3URLV_AL6LocaleVSSyAA18TranscriptSnapshotCYbScMYccySSYbScMYccySSYbScMYccySSYbScMYcctYaF",
+            "moduleName": "SpeechAnalyzerKit",
+            "declAttributes": [
+              "Final",
+              "Nonisolated",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "assetStatus",
+            "printedName": "assetStatus(locale:preset:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Status",
+                "printedName": "Speech.AssetInventory.Status",
+                "usr": "s:6Speech14AssetInventoryC6StatusO"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Locale",
+                "printedName": "Foundation.Locale",
+                "usr": "s:10Foundation6LocaleV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Preset",
+                "printedName": "Speech.SpeechTranscriber.Preset",
+                "usr": "s:6Speech0A11TranscriberC6PresetV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17SpeechAnalyzerKit0aB6EngineC11assetStatus6locale6preset0A014AssetInventoryC0F0O10Foundation6LocaleV_AG0A11TranscriberC6PresetVtYaFZ",
+            "mangledName": "$s17SpeechAnalyzerKit0aB6EngineC11assetStatus6locale6preset0A014AssetInventoryC0F0O10Foundation6LocaleV_AG0A11TranscriberC6PresetVtYaFZ",
+            "moduleName": "SpeechAnalyzerKit",
+            "static": true,
+            "declAttributes": [
+              "Custom",
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "downloadAssets",
+            "printedName": "downloadAssets(locale:preset:onProgress:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Locale",
+                "printedName": "Foundation.Locale",
+                "usr": "s:10Foundation6LocaleV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Preset",
+                "printedName": "Speech.SpeechTranscriber.Preset",
+                "usr": "s:6Speech0A11TranscriberC6PresetV"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.Double) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Double",
+                    "printedName": "Swift.Double",
+                    "usr": "s:Sd"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17SpeechAnalyzerKit0aB6EngineC14downloadAssets6locale6preset10onProgressy10Foundation6LocaleV_0A00A11TranscriberC6PresetVySdYbScMYcctYaKFZ",
+            "mangledName": "$s17SpeechAnalyzerKit0aB6EngineC14downloadAssets6locale6preset10onProgressy10Foundation6LocaleV_0A00A11TranscriberC6PresetVySdYbScMYcctYaKFZ",
+            "moduleName": "SpeechAnalyzerKit",
+            "static": true,
+            "declAttributes": [
+              "Custom",
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerEngine",
+        "mangledName": "$s17SpeechAnalyzerKit0aB6EngineC",
+        "moduleName": "SpeechAnalyzerKit",
+        "intro_iOS": "26.0",
+        "objc_name": "SpeechAnalyzerEngine",
+        "declAttributes": [
+          "Final",
+          "AccessControl",
+          "ObjC",
+          "Custom",
+          "Available",
+          "RawDocComment"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "SpeechAnalyzerKit",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Speech",
+        "printedName": "Speech",
+        "declKind": "Import",
+        "moduleName": "SpeechAnalyzerKit"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SpeechAnalyzerKitHelper",
+        "printedName": "SpeechAnalyzerKitHelper",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "authorizationStatus",
+            "printedName": "authorizationStatus",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SFSpeechRecognizerAuthorizationStatus",
+                "printedName": "Speech.SFSpeechRecognizerAuthorizationStatus",
+                "usr": "c:@E@SFSpeechRecognizerAuthorizationStatus"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerKitHelper(cpy)authorizationStatus",
+            "mangledName": "$s17SpeechAnalyzerKit0abC6HelperC19authorizationStatusSo031SFSpeechRecognizerAuthorizationF0VvpZ",
+            "moduleName": "SpeechAnalyzerKit",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SFSpeechRecognizerAuthorizationStatus",
+                    "printedName": "Speech.SFSpeechRecognizerAuthorizationStatus",
+                    "usr": "c:@E@SFSpeechRecognizerAuthorizationStatus"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerKitHelper(cm)authorizationStatus",
+                "mangledName": "$s17SpeechAnalyzerKit0abC6HelperC19authorizationStatusSo031SFSpeechRecognizerAuthorizationF0VvgZ",
+                "moduleName": "SpeechAnalyzerKit",
+                "static": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "requestAuthorization",
+            "printedName": "requestAuthorization(completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Speech.SFSpeechRecognizerAuthorizationStatus) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SFSpeechRecognizerAuthorizationStatus",
+                    "printedName": "Speech.SFSpeechRecognizerAuthorizationStatus",
+                    "usr": "c:@E@SFSpeechRecognizerAuthorizationStatus"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerKitHelper(cm)requestAuthorizationWithCompletion:",
+            "mangledName": "$s17SpeechAnalyzerKit0abC6HelperC20requestAuthorization10completionyySo018SFSpeechRecognizerF6StatusVc_tFZ",
+            "moduleName": "SpeechAnalyzerKit",
+            "static": true,
+            "objc_name": "requestAuthorizationWithCompletion:",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "requestRecordPermission",
+            "printedName": "requestRecordPermission(completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.Bool) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerKitHelper(cm)requestRecordPermissionWithCompletion:",
+            "mangledName": "$s17SpeechAnalyzerKit0abC6HelperC23requestRecordPermission10completionyySbc_tFZ",
+            "moduleName": "SpeechAnalyzerKit",
+            "static": true,
+            "intro_iOS": "17.0",
+            "objc_name": "requestRecordPermissionWithCompletion:",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC",
+              "Available",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "requestRecordPermissionLegacy",
+            "printedName": "requestRecordPermissionLegacy(completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.Bool) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerKitHelper(cm)requestRecordPermissionLegacyWithCompletion:",
+            "mangledName": "$s17SpeechAnalyzerKit0abC6HelperC29requestRecordPermissionLegacy10completionyySbc_tFZ",
+            "moduleName": "SpeechAnalyzerKit",
+            "static": true,
+            "objc_name": "requestRecordPermissionLegacyWithCompletion:",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "createEngine",
+            "printedName": "createEngine()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SpeechAnalyzerEngine",
+                "printedName": "SpeechAnalyzerKit.SpeechAnalyzerEngine",
+                "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerEngine"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17SpeechAnalyzerKit0abC6HelperC12createEngineAA0abF0CyFZ",
+            "mangledName": "$s17SpeechAnalyzerKit0abC6HelperC12createEngineAA0abF0CyFZ",
+            "moduleName": "SpeechAnalyzerKit",
+            "static": true,
+            "intro_iOS": "26.0",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "Custom",
+              "Available",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "createAudioRecorder",
+            "printedName": "createAudioRecorder()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "AudioRecorder",
+                "printedName": "SpeechAnalyzerKit.AudioRecorder",
+                "usr": "c:@M@SpeechAnalyzerKit@objc(cs)AudioRecorder"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerKitHelper(cm)createAudioRecorder",
+            "mangledName": "$s17SpeechAnalyzerKit0abC6HelperC19createAudioRecorderAA0fG0CyFZ",
+            "moduleName": "SpeechAnalyzerKit",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC",
+              "Custom",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "availableLocales",
+            "printedName": "availableLocales()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[Foundation.Locale]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Locale",
+                    "printedName": "Foundation.Locale",
+                    "usr": "s:10Foundation6LocaleV"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerKitHelper(cm)availableLocales",
+            "mangledName": "$s17SpeechAnalyzerKit0abC6HelperC16availableLocalesSay10Foundation6LocaleVGyFZ",
+            "moduleName": "SpeechAnalyzerKit",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "isLocaleSupported",
+            "printedName": "isLocaleSupported(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Locale",
+                "printedName": "Foundation.Locale",
+                "usr": "s:10Foundation6LocaleV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerKitHelper(cm)isLocaleSupported:",
+            "mangledName": "$s17SpeechAnalyzerKit0abC6HelperC17isLocaleSupportedySb10Foundation0F0VFZ",
+            "moduleName": "SpeechAnalyzerKit",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SpeechAnalyzerKitHelper",
+                "printedName": "SpeechAnalyzerKit.SpeechAnalyzerKitHelper",
+                "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerKitHelper"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerKitHelper(im)init",
+            "mangledName": "$s17SpeechAnalyzerKit0abC6HelperCACycfc",
+            "moduleName": "SpeechAnalyzerKit",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerKitHelper",
+        "mangledName": "$s17SpeechAnalyzerKit0abC6HelperC",
+        "moduleName": "SpeechAnalyzerKit",
+        "objc_name": "SpeechAnalyzerKitHelper",
+        "declAttributes": [
+          "Final",
+          "AccessControl",
+          "ObjC",
+          "RawDocComment"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "SpeechAnalyzerKit"
+      },
+      {
+        "kind": "Import",
+        "name": "Speech",
+        "printedName": "Speech",
+        "declKind": "Import",
+        "moduleName": "SpeechAnalyzerKit"
+      },
+      {
+        "kind": "Import",
+        "name": "AVFoundation",
+        "printedName": "AVFoundation",
+        "declKind": "Import",
+        "moduleName": "SpeechAnalyzerKit",
+        "declAttributes": [
+          "Preconcurrency"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SpeechAnalyzerWrapper",
+        "printedName": "SpeechAnalyzerWrapper",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SpeechAnalyzerWrapper",
+                "printedName": "SpeechAnalyzerKit.SpeechAnalyzerWrapper",
+                "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerWrapper"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerWrapper(im)init",
+            "mangledName": "$s17SpeechAnalyzerKit0aB7WrapperCACycfc",
+            "moduleName": "SpeechAnalyzerKit",
+            "overriding": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "startRealtimeWithLocaleIdentifier",
+            "printedName": "startRealtimeWithLocaleIdentifier(_:prefix:onResult:onError:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(SpeechAnalyzerKit.TranscriptSnapshot) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "TranscriptSnapshot",
+                    "printedName": "SpeechAnalyzerKit.TranscriptSnapshot",
+                    "usr": "c:@M@SpeechAnalyzerKit@objc(cs)TranscriptSnapshot"
+                  }
+                ]
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.String) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerWrapper(im)startRealtimeWithLocaleIdentifier:prefix:onResult:onError:",
+            "mangledName": "$s17SpeechAnalyzerKit0aB7WrapperC33startRealtimeWithLocaleIdentifier_6prefix8onResult0K5ErrorySS_SSyAA18TranscriptSnapshotCYbcySSYbctF",
+            "moduleName": "SpeechAnalyzerKit",
+            "declAttributes": [
+              "Final",
+              "Custom",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "stop",
+            "printedName": "stop()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerWrapper(im)stop",
+            "mangledName": "$s17SpeechAnalyzerKit0aB7WrapperC4stopyyF",
+            "moduleName": "SpeechAnalyzerKit",
+            "declAttributes": [
+              "Final",
+              "Custom",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "transcribeFileAtPath",
+            "printedName": "transcribeFileAtPath(_:localeIdentifier:prefix:onResult:onFormatInfo:onComplete:onError:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(SpeechAnalyzerKit.TranscriptSnapshot) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "TranscriptSnapshot",
+                    "printedName": "SpeechAnalyzerKit.TranscriptSnapshot",
+                    "usr": "c:@M@SpeechAnalyzerKit@objc(cs)TranscriptSnapshot"
+                  }
+                ]
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.String) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ]
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.String) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ]
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.String) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerWrapper(im)transcribeFileAtPath:localeIdentifier:prefix:onResult:onFormatInfo:onComplete:onError:",
+            "mangledName": "$s17SpeechAnalyzerKit0aB7WrapperC20transcribeFileAtPath_16localeIdentifier6prefix8onResult0L10FormatInfo0L8Complete0L5ErrorySS_S2SyAA18TranscriptSnapshotCYbcySSYbcySSYbcySSYbctF",
+            "moduleName": "SpeechAnalyzerKit",
+            "declAttributes": [
+              "Final",
+              "Custom",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "formatInfo",
+            "printedName": "formatInfo",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerWrapper(py)formatInfo",
+            "mangledName": "$s17SpeechAnalyzerKit0aB7WrapperC10formatInfoSSvp",
+            "moduleName": "SpeechAnalyzerKit",
+            "declAttributes": [
+              "Final",
+              "Custom",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerWrapper(im)formatInfo",
+                "mangledName": "$s17SpeechAnalyzerKit0aB7WrapperC10formatInfoSSvg",
+                "moduleName": "SpeechAnalyzerKit",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "checkAssetStatusForJapanese",
+            "printedName": "checkAssetStatusForJapanese(preset:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.Int) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerWrapper(cm)checkAssetStatusForJapaneseWithPreset:completion:",
+            "mangledName": "$s17SpeechAnalyzerKit0aB7WrapperC27checkAssetStatusForJapanese6preset10completionySi_ySictFZ",
+            "moduleName": "SpeechAnalyzerKit",
+            "static": true,
+            "objc_name": "checkAssetStatusForJapaneseWithPreset:completion:",
+            "declAttributes": [
+              "Final",
+              "Custom",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "downloadAssetsForJapanese",
+            "printedName": "downloadAssetsForJapanese(preset:onProgress:onError:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.Double) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Double",
+                    "printedName": "Swift.Double",
+                    "usr": "s:Sd"
+                  }
+                ]
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.String?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerWrapper(cm)downloadAssetsForJapaneseWithPreset:onProgress:onError:",
+            "mangledName": "$s17SpeechAnalyzerKit0aB7WrapperC25downloadAssetsForJapanese6preset10onProgress0J5ErrorySi_ySdYbcySSSgYbctFZ",
+            "moduleName": "SpeechAnalyzerKit",
+            "static": true,
+            "objc_name": "downloadAssetsForJapaneseWithPreset:onProgress:onError:",
+            "declAttributes": [
+              "Final",
+              "Custom",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@SpeechAnalyzerKit@objc(cs)SpeechAnalyzerWrapper",
+        "mangledName": "$s17SpeechAnalyzerKit0aB7WrapperC",
+        "moduleName": "SpeechAnalyzerKit",
+        "intro_iOS": "26.0",
+        "objc_name": "SpeechAnalyzerWrapper",
+        "declAttributes": [
+          "Final",
+          "AccessControl",
+          "ObjC",
+          "Custom",
+          "Available",
+          "RawDocComment"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "SpeechAnalyzerKit"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "TranscriptSnapshot",
+        "printedName": "TranscriptSnapshot",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "confirmedText",
+            "printedName": "confirmedText",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)TranscriptSnapshot(py)confirmedText",
+            "mangledName": "$s17SpeechAnalyzerKit18TranscriptSnapshotC13confirmedTextSSvp",
+            "moduleName": "SpeechAnalyzerKit",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@SpeechAnalyzerKit@objc(cs)TranscriptSnapshot(im)confirmedText",
+                "mangledName": "$s17SpeechAnalyzerKit18TranscriptSnapshotC13confirmedTextSSvg",
+                "moduleName": "SpeechAnalyzerKit",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "pendingText",
+            "printedName": "pendingText",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)TranscriptSnapshot(py)pendingText",
+            "mangledName": "$s17SpeechAnalyzerKit18TranscriptSnapshotC11pendingTextSSvp",
+            "moduleName": "SpeechAnalyzerKit",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@SpeechAnalyzerKit@objc(cs)TranscriptSnapshot(im)pendingText",
+                "mangledName": "$s17SpeechAnalyzerKit18TranscriptSnapshotC11pendingTextSSvg",
+                "moduleName": "SpeechAnalyzerKit",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "combinedText",
+            "printedName": "combinedText",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)TranscriptSnapshot(py)combinedText",
+            "mangledName": "$s17SpeechAnalyzerKit18TranscriptSnapshotC12combinedTextSSvp",
+            "moduleName": "SpeechAnalyzerKit",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@SpeechAnalyzerKit@objc(cs)TranscriptSnapshot(im)combinedText",
+                "mangledName": "$s17SpeechAnalyzerKit18TranscriptSnapshotC12combinedTextSSvg",
+                "moduleName": "SpeechAnalyzerKit",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(confirmedText:pendingText:combinedText:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "TranscriptSnapshot",
+                "printedName": "SpeechAnalyzerKit.TranscriptSnapshot",
+                "usr": "c:@M@SpeechAnalyzerKit@objc(cs)TranscriptSnapshot"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)TranscriptSnapshot(im)initWithConfirmedText:pendingText:combinedText:",
+            "mangledName": "$s17SpeechAnalyzerKit18TranscriptSnapshotC13confirmedText07pendingG008combinedG0ACSS_S2Stcfc",
+            "moduleName": "SpeechAnalyzerKit",
+            "objc_name": "initWithConfirmedText:pendingText:combinedText:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "TranscriptSnapshot",
+                "printedName": "SpeechAnalyzerKit.TranscriptSnapshot",
+                "usr": "c:@M@SpeechAnalyzerKit@objc(cs)TranscriptSnapshot"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@SpeechAnalyzerKit@objc(cs)TranscriptSnapshot(im)init",
+            "mangledName": "$s17SpeechAnalyzerKit18TranscriptSnapshotCACycfc",
+            "moduleName": "SpeechAnalyzerKit",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@SpeechAnalyzerKit@objc(cs)TranscriptSnapshot",
+        "mangledName": "$s17SpeechAnalyzerKit18TranscriptSnapshotC",
+        "moduleName": "SpeechAnalyzerKit",
+        "objc_name": "TranscriptSnapshot",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC",
+          "RawDocComment"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Volumes\/ORICO_4\/work\/poc\/ios\/SpeechAnalyzerKit\/SpeechAnalyzerKit\/AudioRecorder.swift",
+      "kind": "StringLiteral",
+      "offset": 320,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Volumes\/ORICO_4\/work\/poc\/ios\/SpeechAnalyzerKit\/SpeechAnalyzerKit\/AudioRecorder.swift",
+      "kind": "BooleanLiteral",
+      "offset": 407,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Volumes\/ORICO_4\/work\/poc\/ios\/SpeechAnalyzerKit\/SpeechAnalyzerKit\/AudioRecorder.swift",
+      "kind": "StringLiteral",
+      "offset": 2965,
+      "length": 11,
+      "value": "\"recording\""
+    },
+    {
+      "filePath": "\/Volumes\/ORICO_4\/work\/poc\/ios\/SpeechAnalyzerKit\/SpeechAnalyzerKit\/AudioRecorder.swift",
+      "kind": "StringLiteral",
+      "offset": 3002,
+      "length": 17,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Volumes\/ORICO_4\/work\/poc\/ios\/SpeechAnalyzerKit\/SpeechAnalyzerKit\/AudioRecorder.swift",
+      "kind": "StringLiteral",
+      "offset": 3014,
+      "length": 1,
+      "value": "\".m4a\""
+    },
+    {
+      "filePath": "\/Volumes\/ORICO_4\/work\/poc\/ios\/SpeechAnalyzerKit\/SpeechAnalyzerKit\/SpeechAnalyzerEngine.swift",
+      "kind": "Array",
+      "offset": 509,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Volumes\/ORICO_4\/work\/poc\/ios\/SpeechAnalyzerKit\/SpeechAnalyzerKit\/SpeechAnalyzerEngine.swift",
+      "kind": "StringLiteral",
+      "offset": 551,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Volumes\/ORICO_4\/work\/poc\/ios\/SpeechAnalyzerKit\/SpeechAnalyzerKit\/SpeechAnalyzerEngine.swift",
+      "kind": "StringLiteral",
+      "offset": 595,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Volumes\/ORICO_4\/work\/poc\/ios\/SpeechAnalyzerKit\/SpeechAnalyzerKit\/SpeechAnalyzerEngine.swift",
+      "kind": "StringLiteral",
+      "offset": 1179,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Volumes\/ORICO_4\/work\/poc\/ios\/SpeechAnalyzerKit\/SpeechAnalyzerKit\/SpeechAnalyzerEngine.swift",
+      "kind": "StringLiteral",
+      "offset": 8556,
+      "length": 2,
+      "value": "\"\""
+    }
+  ]
+}

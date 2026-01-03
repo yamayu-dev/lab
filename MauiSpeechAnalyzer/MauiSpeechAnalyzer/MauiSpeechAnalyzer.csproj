@@ -1,0 +1,100 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net10.0-ios</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net9.0-tizen</TargetFrameworks> -->
+
+		<!-- Note for MacCatalyst:
+		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
+		When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
+		The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
+		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
+		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
+
+		<OutputType>Exe</OutputType>
+		<RootNamespace>MauiSpeechAnalyzer</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+
+		<!-- Display name -->
+		<ApplicationTitle>MauiSpeechAnalyzer</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.mauispeechanalyzer</ApplicationId>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
+		<WindowsPackageType>None</WindowsPackageType>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-ios'">
+	  <CodesignKey>Apple Development: Created via API (5CPGGT38PJ)</CodesignKey>
+	  <CodesignProvision>VS: WildCard Development</CodesignProvision>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- 既定Compileを無効化しているため、通常の.csを明示的に含める -->
+		<Compile Include="**\*.cs" Exclude="bin\**;obj\**;**\*.ios.cs;**\*.android.cs;**\*.maccatalyst.cs;**\*.windows.cs;**\*.tizen.cs;Platforms\**\*.cs" />
+		<None Include="**\*.ios.cs" Exclude="bin\**;obj\**" />
+		<None Include="**\*.android.cs" Exclude="bin\**;obj\**" />
+		<Compile Include="Platforms\**\*.cs" Exclude="bin\**;obj\**" />
+		<Compile Remove="**\*.maccatalyst.cs" />
+		<Compile Remove="**\*.windows.cs" />
+		<Compile Remove="**\*.tizen.cs" />
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
+		
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.9" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)'=='net10.0-ios'">
+		<Compile Include="**\*.ios.cs" Exclude="bin\**;obj\**" />
+		<Compile Remove="Services\ServiceCollectionExtensions.cs" />
+		<Compile Remove="**\*.android.cs" />
+		<Compile Remove="Platforms\Android\**\*.cs" />
+		<Compile Remove="Platforms\Windows\**\*.cs" />
+		<ProjectReference Include="..\SpeechAnalyzerKit\SpeechAnalyzerKit.csproj" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)'=='net10.0-maccatalyst'">
+		<Compile Include="**\*.ios.cs" Exclude="bin\**;obj\**" />
+		<Compile Remove="Services\ServiceCollectionExtensions.cs" />
+		<Compile Remove="**\*.android.cs" />
+		<Compile Remove="Platforms\Android\**\*.cs" />
+		<Compile Remove="Platforms\Windows\**\*.cs" />
+		<ProjectReference Include="..\SpeechAnalyzerKit\SpeechAnalyzerKit.csproj" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)'=='net10.0-android'">
+		<Compile Include="**\*.android.cs" Exclude="bin\**;obj\**" />
+		<Compile Remove="**\*.ios.cs" />
+		<Compile Remove="Platforms\iOS\**\*.cs" />
+		<Compile Remove="Platforms\Windows\**\*.cs" />
+	</ItemGroup>
+
+</Project>

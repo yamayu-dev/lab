@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiSpeechAnalyzer.MainPage">
+
+    <VerticalStackLayout Padding="16" Spacing="12">
+
+        <Label Text="音声認識テスト" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
+
+        <HorizontalStackLayout Spacing="12" HorizontalOptions="Center">
+            <Button x:Name="StartBtn" Text="Start" Clicked="OnStartClicked" />
+            <Button x:Name="StopBtn" Text="Stop" Clicked="OnStopClicked" IsEnabled="False" />
+            <Button x:Name="CheckAssetBtn" Text="Check Asset" Clicked="OnCheckAssetClicked" />
+        </HorizontalStackLayout>
+
+        <Label x:Name="StatusLabel" Text="" FontSize="14" TextColor="Gray" />
+
+        <Label Text="文字起こし結果" FontAttributes="Bold" Margin="0,20,0,0" />
+
+        <ScrollView VerticalOptions="FillAndExpand">
+            <VerticalStackLayout Spacing="8">
+                <Label Text="確定テキスト:" FontAttributes="Bold" />
+                <Label x:Name="ConfirmedLabel" Text="" LineBreakMode="WordWrap" />
+                
+                <Label Text="暫定テキスト:" FontAttributes="Bold" Margin="0,12,0,0" />
+                <Label x:Name="PendingLabel" Text="" LineBreakMode="WordWrap" TextColor="Gray" />
+                
+                <Label Text="結合テキスト:" FontAttributes="Bold" Margin="0,12,0,0" />
+                <Label x:Name="CombinedLabel" Text="" LineBreakMode="WordWrap" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </VerticalStackLayout>
+
+</ContentPage>
