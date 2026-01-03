@@ -3,19 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WhisperSample.MainPage">
 
-    <VerticalStackLayout Padding="16" Spacing="12">
+    <Grid RowDefinitions="Auto,*" Padding="16" RowSpacing="12">
 
         <HorizontalStackLayout Spacing="12">
             <Button x:Name="StartBtn" Text="Start" Clicked="OnStartClicked" />
             <Button x:Name="StopBtn" Text="Stop" Clicked="OnStopClicked" IsEnabled="False" />
         </HorizontalStackLayout>
 
-        <Label Text="Transcription" FontAttributes="Bold" />
-
-        <ScrollView VerticalOptions="Fill">
-            <Label x:Name="TranscriptLabel" Text="" LineBreakMode="WordWrap" />
+        <ScrollView Grid.Row="1">
+            <Label x:Name="TranscriptLabel" Text="Transcription will appear here" LineBreakMode="WordWrap" />
         </ScrollView>
 
-    </VerticalStackLayout>
+    </Grid>
 
 </ContentPage>

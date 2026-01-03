@@ -23,16 +23,12 @@ public sealed class RealtimeTranscriber : IAsyncDisposable
         _source = _streamSourceFactory();
 
         var pcmBuffer = new List<byte>(capacity: 16000 * 2 * 20);
-        var inputSampleRate = 16000;
-        short inputChannels = 1;
 
         void OnChunk(object? s, PcmChunkEventArgs e)
         {
             lock (pcmBuffer)
             {
                 pcmBuffer.AddRange(e.Pcm16Le.AsSpan(0, e.Bytes).ToArray());
-                inputSampleRate = e.SampleRate;
-                inputChannels = e.Channels;
 
                 // 最大40秒ぶん程度に制限
                 const int maxBufferBytes = 16000 * 2 * 40;
@@ -52,25 +48,23 @@ public sealed class RealtimeTranscriber : IAsyncDisposable
                 await Task.Delay(interval, ct);
 
                 byte[] snapshot;
-                int sr;
-                short ch;
                 lock (pcmBuffer)
                 {
                     snapshot = pcmBuffer.ToArray();
-                    sr = inputSampleRate;
-                    ch = inputChannels;
                 }
 
-                // 2秒未満はスキップ（最小実装なので雑に）
+                // 2秒未満はスキップ
                 if (snapshot.Length < 16000 * 2 * 2)
                     continue;
 
-                var text = await _whisper.TranscribePcm16LeAsync(snapshot, sr, ch, ct);
+                // AudioStreamSource は常に 16kHz/モノ/PCM16 を出力する
+                var text = await _whisper.TranscribePcm16LeAsync(snapshot, 16000, 1, ct);
+                
                 if (!string.IsNullOrWhiteSpace(text))
                 {
                     yield return text;
 
-                    // 推論したらバッファをクリア（未確定/確定の判定なしでOKとのことなので最小に）
+                    // 推論したらバッファをクリア
                     lock (pcmBuffer)
                         pcmBuffer.Clear();
                 }

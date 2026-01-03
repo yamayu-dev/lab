@@ -39,8 +39,11 @@ public sealed class WhisperTranscriptionService : IDisposable
         {
             await EnsureLoadedAsync(ct);
 
-            var pcm16kMono = Ensure16kMonoPcm16Le(pcm16Le, sampleRate, channels);
-            var samples = Pcm16LeToFloat(pcm16kMono);
+            // iOS側（AudioStreamSource）で 16kHz / mono / PCM16 に統一する前提
+            if (sampleRate != WhisperSampleRate || channels != 1)
+                return string.Empty;
+
+            var samples = Pcm16LeToFloat(pcm16Le);
             if (samples.Length < WhisperSampleRate)
                 return string.Empty;
 
@@ -89,89 +92,5 @@ public sealed class WhisperTranscriptionService : IDisposable
             floats[i] = s * inv;
         }
         return floats;
-    }
-
-    private static byte[] Ensure16kMonoPcm16Le(byte[] pcm16Le, int sampleRate, short channels)
-    {
-        if (channels <= 0)
-            channels = 1;
-        if (sampleRate <= 0)
-            sampleRate = 16000;
-
-        if (sampleRate == 16000 && channels == 1)
-            return pcm16Le;
-
-        var mono = channels == 1 ? pcm16Le : DownmixToMonoPcm16Le(pcm16Le, channels);
-        if (sampleRate == 16000)
-            return mono;
-
-        return ResamplePcm16LeLinear(mono, sampleRate, 16000);
-    }
-
-    private static byte[] DownmixToMonoPcm16Le(byte[] interleavedPcm16Le, short channels)
-    {
-        var bytesPerFrame = channels * 2;
-        if (bytesPerFrame <= 0 || interleavedPcm16Le.Length < bytesPerFrame)
-            return Array.Empty<byte>();
-
-        var frames = interleavedPcm16Le.Length / bytesPerFrame;
-        var outBytes = new byte[frames * 2];
-
-        for (var f = 0; f < frames; f++)
-        {
-            int sum = 0;
-            for (var ch = 0; ch < channels; ch++)
-            {
-                var i = f * bytesPerFrame + ch * 2;
-                short s = (short)(interleavedPcm16Le[i] | (interleavedPcm16Le[i + 1] << 8));
-                sum += s;
-            }
-
-            short avg = (short)(sum / channels);
-            outBytes[f * 2] = (byte)(avg & 0xFF);
-            outBytes[f * 2 + 1] = (byte)((avg >> 8) & 0xFF);
-        }
-
-        return outBytes;
-    }
-
-    private static byte[] ResamplePcm16LeLinear(byte[] monoPcm16Le, int fromRate, int toRate)
-    {
-        if (fromRate <= 0 || toRate <= 0)
-            return monoPcm16Le;
-        if (fromRate == toRate)
-            return monoPcm16Le;
-
-        var inSamples = monoPcm16Le.Length / 2;
-        if (inSamples <= 1)
-            return Array.Empty<byte>();
-
-        var outSamples = (int)Math.Round(inSamples * (double)toRate / fromRate);
-        if (outSamples <= 1)
-            return Array.Empty<byte>();
-
-        short ReadSample(int idx)
-        {
-            var i = idx * 2;
-            return (short)(monoPcm16Le[i] | (monoPcm16Le[i + 1] << 8));
-        }
-
-        var outBytes = new byte[outSamples * 2];
-        for (var i = 0; i < outSamples; i++)
-        {
-            var pos = i * (double)(inSamples - 1) / (outSamples - 1);
-            var left = (int)Math.Floor(pos);
-            var right = Math.Min(left + 1, inSamples - 1);
-            var t = pos - left;
-
-            var s0 = ReadSample(left);
-            var s1 = ReadSample(right);
-            var s = (short)Math.Round(s0 + (s1 - s0) * t);
-
-            outBytes[i * 2] = (byte)(s & 0xFF);
-            outBytes[i * 2 + 1] = (byte)((s >> 8) & 0xFF);
-        }
-
-        return outBytes;
     }
 }
