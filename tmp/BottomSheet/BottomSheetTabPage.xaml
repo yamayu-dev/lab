@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+             xmlns:vm="clr-namespace:TelerikMauiApp2.ViewModels"
+             xmlns:behaviors="clr-namespace:TelerikMauiApp2.Behaviors"
+             x:Class="TelerikMauiApp2.Views.BottomSheetTabPage"
+             Title="BottomSheet with Tabs">
+
+    <ContentPage.BindingContext>
+        <vm:BottomSheetTabPageViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <!-- BottomSheet -->
+    <telerik:RadBottomSheet x:Name="bottomSheet">
+        <telerik:RadBottomSheet.Behaviors>
+            <behaviors:BottomSheetStateChangingToCommandBehavior
+                Command="{Binding BottomSheetStateChangingCommand}" />
+        </telerik:RadBottomSheet.Behaviors>
+        <!-- メインコンテンツ -->
+        <telerik:RadBottomSheet.Content>
+            <VerticalStackLayout
+                Spacing="25"
+                Padding="30,0"
+                VerticalOptions="Center">
+
+                <Label
+                    Text="BottomSheet with Tabs Demo"
+                    Style="{StaticResource Headline}"
+                    FontSize="32"
+                    HorizontalOptions="Center" />
+
+                <Label
+                    Text="タブ切り替え機能付きBottomSheet"
+                    FontSize="18"
+                    HorizontalOptions="Center" />
+
+                <Button
+                    Text="BottomSheetを開く"
+                    Command="{Binding OpenBottomSheetCommand}"
+                    BackgroundColor="#512BD4"
+                    TextColor="White"
+                    CornerRadius="8"
+                    Padding="20,10"
+                    HorizontalOptions="Center" />
+
+                <Label
+                    Text="{Binding SelectedInfo}"
+                    FontSize="16"
+                    HorizontalOptions="Center"
+                    Margin="0,20,0,0" />
+
+            </VerticalStackLayout>
+        </telerik:RadBottomSheet.Content>
+
+        <!-- BottomSheetコンテンツ -->
+        <telerik:RadBottomSheet.BottomSheetContent>
+            <Grid Padding="16,12">
+                <!-- コンテンツ領域 -->
+                <Grid>
+                    <ContentView IsVisible="{Binding IsDockHomeVisible}">
+                        <ScrollView>
+                            <VerticalStackLayout Spacing="12">
+                                <Label Text="Dock: ホーム" FontAttributes="Bold" FontSize="20" />
+                                <Label Text="（ここにホーム用のコンテンツを置けます）" />
+                                <telerik:RadEntry Placeholder="メモ" Text="{Binding HomeText}" />
+                            </VerticalStackLayout>
+                        </ScrollView>
+                    </ContentView>
+
+                    <ContentView IsVisible="{Binding IsDockSettingsVisible}">
+                        <ScrollView>
+                            <VerticalStackLayout Spacing="12">
+                                <Label Text="Dock: 設定" FontAttributes="Bold" FontSize="20" />
+                                <HorizontalStackLayout Spacing="12">
+                                    <Label Text="通知" VerticalOptions="Center" />
+                                    <telerik:RadCheckBox IsChecked="{Binding NotificationEnabled}"
+                                                        VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                                <Label Text="ボリューム" />
+                                <telerik:RadSlider Minimum="0" Maximum="100" Value="{Binding VolumeValue}" />
+                            </VerticalStackLayout>
+                        </ScrollView>
+                    </ContentView>
+
+                    <ContentView IsVisible="{Binding IsDockInfoVisible}">
+                        <ScrollView>
+                            <VerticalStackLayout Spacing="12">
+                                <Label Text="Dock: 情報" FontAttributes="Bold" FontSize="20" />
+                                <telerik:RadBorder BorderColor="#2E2E2E"
+                                                  BorderThickness="1"
+                                                  BackgroundColor="#1C1C1E"
+                                                  CornerRadius="14"
+                                                  Padding="14">
+                                    <VerticalStackLayout Spacing="6">
+                                        <Label Text="TelerikMauiApp2" TextColor="White" FontAttributes="Bold" />
+                                        <Label Text="Version: 1.0.0" TextColor="#BDBDBD" />
+                                        <Label Text="Build: 2026-01-08" TextColor="#BDBDBD" />
+                                    </VerticalStackLayout>
+                                </telerik:RadBorder>
+                            </VerticalStackLayout>
+                        </ScrollView>
+                    </ContentView>
+                </Grid>
+            </Grid>
+        </telerik:RadBottomSheet.BottomSheetContent>
+
+        </telerik:RadBottomSheet>
+
+        <!-- Floating Dock TabBar（ページに固定。シートをスワイプしても追従しない） -->
+        <Grid IsVisible="{Binding IsDockVisible}"
+              VerticalOptions="End"
+              HorizontalOptions="Center"
+              Margin="0,0,0,24"
+              InputTransparent="False">
+            <Grid.Shadow>
+                <Shadow Brush="#80000000" Offset="0,6" Radius="10" Opacity="0.35" />
+            </Grid.Shadow>
+            <!-- Dock背景 -->
+            <telerik:RadBorder BackgroundColor="#CC1C1C1E"
+                              BorderColor="#40FFFFFF"
+                              BorderThickness="1"
+                              CornerRadius="20"
+                              Padding="10">
+                <HorizontalStackLayout Spacing="10">
+                    <!-- Home -->
+                    <Grid>
+                        <telerik:RadBorder BackgroundColor="{Binding DockHomeBackground}"
+                                          CornerRadius="14"
+                                          Padding="10"
+                                          BorderColor="#3A3A3C"
+                                          BorderThickness="1"
+                                          WidthRequest="64"
+                                          HeightRequest="52">
+                            <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                                <Label Text="🏠" FontSize="18" HorizontalTextAlignment="Center" />
+                                <Label Text="Home" FontSize="10" TextColor="White" HorizontalTextAlignment="Center" />
+                            </VerticalStackLayout>
+                        </telerik:RadBorder>
+                        <Button BackgroundColor="Transparent"
+                                WidthRequest="64"
+                                HeightRequest="52"
+                Command="{Binding SelectDockTabCommand}"
+                CommandParameter="{x:Static vm:DockTab.Home}" />
+                    </Grid>
+
+                    <!-- Settings -->
+                    <Grid>
+                        <telerik:RadBorder BackgroundColor="{Binding DockSettingsBackground}"
+                                          CornerRadius="14"
+                                          Padding="10"
+                                          BorderColor="#3A3A3C"
+                                          BorderThickness="1"
+                                          WidthRequest="64"
+                                          HeightRequest="52">
+                            <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                                <Label Text="⚙" FontSize="18" HorizontalTextAlignment="Center" />
+                                <Label Text="Settings" FontSize="10" TextColor="White" HorizontalTextAlignment="Center" />
+                            </VerticalStackLayout>
+                        </telerik:RadBorder>
+                        <Button BackgroundColor="Transparent"
+                                WidthRequest="64"
+                                HeightRequest="52"
+                Command="{Binding SelectDockTabCommand}"
+                CommandParameter="{x:Static vm:DockTab.Settings}" />
+                    </Grid>
+
+                    <!-- Info -->
+                    <Grid>
+                        <telerik:RadBorder BackgroundColor="{Binding DockInfoBackground}"
+                                          CornerRadius="14"
+                                          Padding="10"
+                                          BorderColor="#3A3A3C"
+                                          BorderThickness="1"
+                                          WidthRequest="64"
+                                          HeightRequest="52">
+                            <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                                <Label Text="ℹ" FontSize="18" HorizontalTextAlignment="Center" />
+                                <Label Text="Info" FontSize="10" TextColor="White" HorizontalTextAlignment="Center" />
+                            </VerticalStackLayout>
+                        </telerik:RadBorder>
+                        <Button BackgroundColor="Transparent"
+                                WidthRequest="64"
+                                HeightRequest="52"
+                Command="{Binding SelectDockTabCommand}"
+                CommandParameter="{x:Static vm:DockTab.Info}" />
+                    </Grid>
+                </HorizontalStackLayout>
+            </telerik:RadBorder>
+        </Grid>
+    </Grid>
+</ContentPage>
