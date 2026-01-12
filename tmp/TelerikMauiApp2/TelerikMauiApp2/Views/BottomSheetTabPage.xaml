@@ -4,6 +4,8 @@
              xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
              xmlns:vm="clr-namespace:TelerikMauiApp2.ViewModels"
              xmlns:controls="clr-namespace:TelerikMauiApp2.Controls"
+             xmlns:views="clr-namespace:TelerikMauiApp2.Views.SearchViews"
+             xmlns:selectors="clr-namespace:TelerikMauiApp2.Selectors"
              x:Class="TelerikMauiApp2.Views.BottomSheetTabPage"
              x:DataType="vm:BottomSheetTabPageViewModel"
              Title="BottomSheet with Tabs">
@@ -87,12 +89,6 @@
                                 <VerticalStackLayout Spacing="12">
                                     <Label Text="Dock: ホーム" TextColor="Black" FontAttributes="Bold" FontSize="20" />
                                     <telerik:RadEntry Placeholder="メモ" Text="{Binding HomeText}" />
-                                    <Button Text="📦 商品を検索（サービス版）"
-                                            Command="{Binding OpenProductSearchCommand}"
-                                            BackgroundColor="#2E7D32"
-                                            TextColor="White"
-                                            CornerRadius="8"
-                                            Padding="12,10" />
                                 </VerticalStackLayout>
                             </ScrollView>
                         </ContentView>
@@ -141,7 +137,43 @@
             ZIndex="3"
             FullHeight="90%"
             InitialState="Hidden"
-            MinimumState="Hidden" />
+            MinimumState="Hidden"
+            State="{Binding ModalState, Mode=TwoWay}">
+            
+            <controls:ModalBottomSheet.SheetContent>
+                <controls:ModalBottomSheetTemplateHost
+                    x:Name="ModalHost"
+                    ViewModel="{Binding ModalContentViewModel}">
+
+                    <controls:ModalBottomSheetTemplateHost.TemplateSelector>
+                        <x:Reference Name="ModalContentTemplateSelector" />
+                    </controls:ModalBottomSheetTemplateHost.TemplateSelector>
+
+                    <controls:ModalBottomSheetTemplateHost.Resources>
+                        <DataTemplate x:Key="ProductSearchViewTemplate">
+                            <views:ProductSearchView />
+                        </DataTemplate>
+                        <DataTemplate x:Key="CustomerSearchViewTemplate">
+                            <views:CustomerSearchView />
+                        </DataTemplate>
+
+                        <selectors:ModalContentViewModelTemplateSelector
+                            x:Name="ModalContentTemplateSelector"
+                            x:Key="ModalContentTemplateSelector"
+                            DefaultTemplate="{x:Null}">
+                            <selectors:ModalContentViewModelTemplateSelector.Mappings>
+                                <selectors:ViewModelTemplateMapping
+                                    ViewModelType="{x:Type vm:ProductSearchViewModel}"
+                                    Template="{StaticResource ProductSearchViewTemplate}" />
+                                <selectors:ViewModelTemplateMapping
+                                    ViewModelType="{x:Type vm:CustomerSearchViewModel}"
+                                    Template="{StaticResource CustomerSearchViewTemplate}" />
+                            </selectors:ModalContentViewModelTemplateSelector.Mappings>
+                        </selectors:ModalContentViewModelTemplateSelector>
+                    </controls:ModalBottomSheetTemplateHost.Resources>
+                </controls:ModalBottomSheetTemplateHost>
+            </controls:ModalBottomSheet.SheetContent>
+        </controls:ModalBottomSheet>
 
         <controls:FloatingTab
             ZIndex="2"

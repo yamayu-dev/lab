@@ -6,8 +6,6 @@
              x:Class="TelerikMauiApp2.MainPage"
              x:DataType="vm:MainPageViewModel">
 
-    <!-- BindingContext は DI 注入（MainPage.xaml.cs）で設定する -->
-
     <Grid>
         <!-- 既存コンテンツ -->
         <ScrollView>

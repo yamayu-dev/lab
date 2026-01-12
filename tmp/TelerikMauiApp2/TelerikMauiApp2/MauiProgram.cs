@@ -4,6 +4,7 @@ using Microsoft.Maui.Controls.Xaml;
 using CommunityToolkit.Maui;
 using TelerikMauiApp2.Services;
 using TelerikMauiApp2.ViewModels;
+using TelerikMauiApp2.Views;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 
@@ -30,10 +31,9 @@ namespace TelerikMauiApp2
                 });
 
             // Navigation (VMからページ遷移するため)
+            builder.Services.AddSingleton<MappingBindingContextResolver>();
+            builder.Services.AddSingleton<IBindingContextResolver>(sp => sp.GetRequiredService<MappingBindingContextResolver>());
             builder.Services.AddSingleton<INavigationService, NavigationService>();
-
-            // BottomSheet Dialog Service (モーダルボトムシート用)
-            builder.Services.AddSingleton<IBottomSheetDialogService, BottomSheetDialogService>();
 
             // Pages / VMs (DI一本化)
             builder.Services.AddTransient<MainPageViewModel>();
@@ -41,7 +41,7 @@ namespace TelerikMauiApp2
             
             // BottomSheetTabPage / ViewModel
             builder.Services.AddTransient<BottomSheetTabPageViewModel>();
-            builder.Services.AddTransient<TelerikMauiApp2.Views.BottomSheetTabPage>();
+            builder.Services.AddTransient<BottomSheetTabPage>();
 
             return builder.Build();
         }

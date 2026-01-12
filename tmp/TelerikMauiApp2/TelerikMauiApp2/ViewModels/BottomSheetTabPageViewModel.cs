@@ -2,11 +2,8 @@ using System;
 using System.Collections.Generic;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Maui.Controls;
 using TelerikMauiApp2.Controls;
 using TelerikMauiApp2.Models;
-using TelerikMauiApp2.Services;
-using TelerikMauiApp2.Views.SearchViews;
 
 namespace TelerikMauiApp2.ViewModels;
 
@@ -19,8 +16,6 @@ public enum DockTab
 
 public partial class BottomSheetTabPageViewModel : ObservableObject
 {
-    private readonly IBottomSheetDialogService _bottomSheetService;
-
     public IReadOnlyList<FloatingTabItemModel> DockTabs { get; }
 
     [ObservableProperty]
@@ -66,12 +61,15 @@ public partial class BottomSheetTabPageViewModel : ObservableObject
     [ObservableProperty]
     private string selectedCustomerInfo = "";
 
-    public ModalBottomSheet? ModalSheet { get; set; }
+    [ObservableProperty]
+    private string modalState = "Hidden";
 
-    public BottomSheetTabPageViewModel(IBottomSheetDialogService bottomSheetService)
+    // Modal content ViewModel (DataTemplate will select the appropriate view)
+    [ObservableProperty]
+    private object? modalContentViewModel;
+
+    public BottomSheetTabPageViewModel()
     {
-        _bottomSheetService = bottomSheetService;
-
         DockTabs = new List<FloatingTabItemModel>
         {
             new() { Text = "Home", IconText = "🏠", Command = SelectDockTabCommand, CommandParameter = DockTab.Home },
@@ -123,23 +121,24 @@ public partial class BottomSheetTabPageViewModel : ObservableObject
     [RelayCommand]
     private void OpenProductSearch()
     {
-        var vm = new ProductSearchViewModel(OnProductSearchClosed);
-        var view = new ProductSearchView { BindingContext = vm };
-        _bottomSheetService.Show(view);
+        // Set ViewModel and let DataTemplate select the view
+        ModalContentViewModel = new ProductSearchViewModel(OnProductSearchClosed);
+        ModalState = "Full";
     }
 
     [RelayCommand]
     private void OpenCustomerSearch()
     {
-        var vm = new CustomerSearchViewModel(OnCustomerSearchClosed);
-        var view = new CustomerSearchView { BindingContext = vm };
-        _bottomSheetService.Show(view);
+        // Set ViewModel and let DataTemplate select the view
+        ModalContentViewModel = new CustomerSearchViewModel(OnCustomerSearchClosed);
+        ModalState = "Full";
     }
 
     private void OnProductSearchClosed(Product? product)
     {
-        _bottomSheetService.Close();
-
+        ModalState = "Hidden";
+        ModalContentViewModel = null;
+        
         if (product != null)
         {
             SelectedProductInfo = $"商品: {product.Name} ({product.Code}) - ¥{product.Price:N0}";
@@ -149,12 +148,20 @@ public partial class BottomSheetTabPageViewModel : ObservableObject
 
     private void OnCustomerSearchClosed(Customer? customer)
     {
-        _bottomSheetService.Close();
-
+        ModalState = "Hidden";
+        ModalContentViewModel = null;
+        
         if (customer != null)
         {
             SelectedCustomerInfo = $"得意先: {customer.Name} ({customer.Code}) - {customer.Address}";
             SelectedInfo = SelectedCustomerInfo;
         }
+    }
+
+    [RelayCommand]
+    private void CloseModal()
+    {
+        ModalState = "Hidden";
+        ModalContentViewModel = null;
     }
 }

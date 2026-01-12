@@ -33,7 +33,7 @@ namespace TelerikMauiApp2.ViewModels
         private Task OpenBottomSheetTab()
         {
             // BottomSheetTabPage 自体は通常の ContentPage。表示はそのページ内の RadBottomSheet が担当。
-            return _navigation.PushAsync(new BottomSheetTabPage());
+            return _navigation.PushAsync<BottomSheetTabPage>();
         }
 
         [RelayCommand]
