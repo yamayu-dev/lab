@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+             xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+             xmlns:vm="clr-namespace:TelerikMauiApp2.ViewModels"
+             xmlns:controls="clr-namespace:TelerikMauiApp2.Controls"
+             x:Class="TelerikMauiApp2.Views.CalendarPopupPage"
+             BackgroundColor="#80808080"
+             x:Name="popupPage">
+    
+    <mopups:PopupPage.BindingContext>
+        <vm:CalendarPopupPageViewModel />
+    </mopups:PopupPage.BindingContext>
+
+    <Border Margin="20" 
+            Padding="20"
+            StrokeThickness="0"
+            BackgroundColor="White"
+            VerticalOptions="Center"
+            HorizontalOptions="Center">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="10"/>
+        </Border.StrokeShape>
+        
+        <VerticalStackLayout Spacing="20">
+            <Label Text="カレンダー選択"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+            
+            <!-- Label継承のDatePickerEntryを使用 -->
+            <controls:DatePickerEntry SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
+                                     Padding="10"
+                                     BackgroundColor="LightGray"/>
+        </VerticalStackLayout>
+    </Border>
+</mopups:PopupPage>
+
+

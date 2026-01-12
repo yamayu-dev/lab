@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+    x:Class="TelerikMauiApp2.Controls.FloatingTabItem"
+    x:Name="Root">
+
+    <Grid>
+        <telerik:RadBorder
+            CornerRadius="14"
+            Padding="10"
+            BorderColor="#3A3A3C"
+            BorderThickness="1"
+            BackgroundColor="{Binding BackgroundColor, Source={x:Reference Root}}">
+
+            <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                <Label Text="{Binding IconText, Source={x:Reference Root}}"
+                       FontSize="18"
+                       HorizontalTextAlignment="Center" />
+                <Label Text="{Binding Text, Source={x:Reference Root}}"
+                       FontSize="10"
+                       TextColor="White"
+                       HorizontalTextAlignment="Center" />
+            </VerticalStackLayout>
+        </telerik:RadBorder>
+
+        <!-- クリック領域 -->
+        <Button BackgroundColor="Transparent"
+                Command="{Binding Command, Source={x:Reference Root}}"
+                CommandParameter="{Binding CommandParameter, Source={x:Reference Root}}"
+                Clicked="OnClicked" />
+    </Grid>
+</ContentView>

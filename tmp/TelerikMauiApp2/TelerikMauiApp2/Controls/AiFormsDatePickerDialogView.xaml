@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<aiforms:DialogView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:aiforms="clr-namespace:AiForms.Dialogs;assembly=AiForms.Maui.Dialogs"
+    xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+    xmlns:controls="clr-namespace:TelerikMauiApp2.Controls"
+    x:Class="TelerikMauiApp2.Controls.AiFormsDatePickerDialogView"
+    x:Name="Control">
+
+    <telerik:RadBorder BackgroundColor="White"
+                      CornerRadius="10"
+                      Padding="20">
+        <VerticalStackLayout Spacing="15">
+            <Label Text="日付を選択"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+
+            <telerik:RadCalendar
+                x:Name="calendar"
+                HeightRequest="350"
+                WidthRequest="350" />
+
+        <Button Text="閉じる"
+            Command="{Binding CloseCommand, Source={Reference Control}}"
+                    BackgroundColor="#512BD4"
+                    TextColor="White"
+                    CornerRadius="5"
+                    Padding="15,10" />
+        </VerticalStackLayout>
+    </telerik:RadBorder>
+
+</aiforms:DialogView>

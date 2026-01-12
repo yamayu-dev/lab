@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+             xmlns:vm="clr-namespace:TelerikMauiApp2.ViewModels"
+             xmlns:controls="clr-namespace:TelerikMauiApp2.Controls"
+             x:Class="TelerikMauiApp2.Views.BottomSheetTabPage"
+             x:DataType="vm:BottomSheetTabPageViewModel"
+             Title="BottomSheet with Tabs">
+
+    <Grid BackgroundColor="AliceBlue">
+
+        <controls:SmartBottomSheet
+            x:Name="SmartSheet"
+            ZIndex="1"
+            PeekHeight="80"
+            PartialHeight="50%"
+            FullHeight="90%"
+            InitialState="Peek"
+            MinimumState="Peek"
+            CollapseThreshold="0.5"
+            ShowDebug="True">
+
+            <controls:SmartBottomSheet.MainContent>
+                <VerticalStackLayout
+                    Padding="16"
+                    VerticalOptions="Start"
+                    BackgroundColor="LightBlue">
+
+                    <Label Text="{Binding DebugText, Source={x:Reference SmartSheet}}" />
+                    <HorizontalStackLayout
+                        Spacing="12"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Start">
+
+                        <Button
+                            Text="表示"
+                            Command="{Binding OpenCommand, Source={x:Reference SmartSheet}}"
+                            BackgroundColor="#512BD4"
+                            TextColor="White"
+                            CornerRadius="8"
+                            Padding="14,10" />
+
+                        <Button
+                            Text="最小化"
+                            Command="{Binding CloseCommand, Source={x:Reference SmartSheet}}"
+                            BackgroundColor="#424242"
+                            TextColor="White"
+                            CornerRadius="8"
+                            Padding="14,10" />
+
+                    </HorizontalStackLayout>
+                    <Label Text="MainContent" Margin="0,60,0,0" />
+                    <Editor Placeholder="Editor" />
+                </VerticalStackLayout>
+            </controls:SmartBottomSheet.MainContent>
+
+            <controls:SmartBottomSheet.SheetContent>
+                <Grid Padding="16,12" BackgroundColor="LightCyan">
+                    <Grid RowDefinitions="Auto,*">
+                        <VerticalStackLayout Grid.Row="0" Spacing="8" Margin="0,0,0,12">
+                            <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto">
+                                <telerik:RadEntry Grid.Row="0" Grid.Column="0" Placeholder="商品未選択"
+                                                  Text="{Binding SelectedProductInfo}"
+                                                  IsReadOnly="True" />
+                                <Button Grid.Row="0" Grid.Column="1" Text="🔍 検索"
+                                        Command="{Binding OpenProductSearchCommand}"
+                                        BackgroundColor="#512BD4"
+                                        TextColor="White"
+                                        CornerRadius="8"
+                                        Padding="12,8" />
+                                <telerik:RadEntry Grid.Row="1" Grid.Column="0" Placeholder="得意先未選択"
+                                                  Text="{Binding SelectedCustomerInfo}"
+                                                  IsReadOnly="True" />
+                                <Button Grid.Row="1" Grid.Column="1" Text="🔍 検索"
+                                        Command="{Binding OpenCustomerSearchCommand}"
+                                        BackgroundColor="#512BD4"
+                                        TextColor="White"
+                                        CornerRadius="8"
+                                        Padding="12,8" />
+                            </Grid>
+                        </VerticalStackLayout>
+
+                        <Grid Grid.Row="1">
+                        <ContentView IsVisible="{Binding IsDockHomeVisible}">
+                            <ScrollView>
+                                <VerticalStackLayout Spacing="12">
+                                    <Label Text="Dock: ホーム" TextColor="Black" FontAttributes="Bold" FontSize="20" />
+                                    <telerik:RadEntry Placeholder="メモ" Text="{Binding HomeText}" />
+                                    <Button Text="📦 商品を検索（サービス版）"
+                                            Command="{Binding OpenProductSearchCommand}"
+                                            BackgroundColor="#2E7D32"
+                                            TextColor="White"
+                                            CornerRadius="8"
+                                            Padding="12,10" />
+                                </VerticalStackLayout>
+                            </ScrollView>
+                        </ContentView>
+
+                        <ContentView IsVisible="{Binding IsDockSettingsVisible}">
+                            <ScrollView>
+                                <VerticalStackLayout Spacing="12">
+                                    <Label Text="Dock: 設定" TextColor="Black" FontAttributes="Bold" FontSize="20" />
+                                    <HorizontalStackLayout Spacing="12">
+                                        <Label Text="通知" VerticalOptions="Center" />
+                                        <telerik:RadCheckBox IsChecked="{Binding NotificationEnabled}" VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                    <Label Text="ボリューム" />
+                                    <telerik:RadSlider Minimum="0" Maximum="100" Value="{Binding VolumeValue}" />
+                                </VerticalStackLayout>
+                            </ScrollView>
+                        </ContentView>
+
+                        <ContentView IsVisible="{Binding IsDockInfoVisible}">
+                            <ScrollView>
+                                <VerticalStackLayout Spacing="12">
+                                    <Label Text="Dock: 情報" TextColor="Black" FontAttributes="Bold" FontSize="20" />
+                                    <telerik:RadBorder BorderColor="#2E2E2E"
+                                                      BorderThickness="1"
+                                                      BackgroundColor="#1C1C1E"
+                                                      CornerRadius="14"
+                                                      Padding="14">
+                                        <VerticalStackLayout Spacing="6">
+                                            <Label Text="TelerikMauiApp2" TextColor="White" FontAttributes="Bold" />
+                                            <Label Text="Version: 1.0.0" TextColor="#BDBDBD" />
+                                            <Label Text="Build: 2026-01-11" TextColor="#BDBDBD" />
+                                        </VerticalStackLayout>
+                                    </telerik:RadBorder>
+                                </VerticalStackLayout>
+                            </ScrollView>
+                        </ContentView>
+                    </Grid>
+                    </Grid>
+                </Grid>
+            </controls:SmartBottomSheet.SheetContent>
+
+        </controls:SmartBottomSheet>
+
+        <controls:ModalBottomSheet
+            x:Name="ModalSheet"
+            ZIndex="3"
+            FullHeight="90%"
+            InitialState="Hidden"
+            MinimumState="Hidden" />
+
+        <controls:FloatingTab
+            ZIndex="2"
+            IsVisible="{Binding IsMinimumState, Source={x:Reference SmartSheet}, Converter={StaticResource InverseBooleanConverter}}"
+            ItemsSource="{Binding DockTabs}"
+            SelectedIndex="{Binding DockSelectedIndex, Mode=TwoWay}"
+            VerticalOptions="End"
+            HorizontalOptions="Center"
+            Margin="0,0,0,12" />
+
+    </Grid>
+</ContentPage>

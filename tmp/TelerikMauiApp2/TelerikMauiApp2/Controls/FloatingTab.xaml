@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+    xmlns:controls="clr-namespace:TelerikMauiApp2.Controls"
+    x:Class="TelerikMauiApp2.Controls.FloatingTab"
+    x:Name="Root">
+
+    <Grid InputTransparent="False">
+        <!-- 背景（余白部分）はタップスルーさせる -->
+        <Grid InputTransparent="True" />
+
+        <telerik:RadBorder
+            IsVisible="{Binding IsVisible, Source={x:Reference Root}}"
+            VerticalOptions="End"
+            HorizontalOptions="Center"
+            Margin="0,0,0,24"
+            BackgroundColor="#CC1C1C1E"
+            BorderColor="#40FFFFFF"
+            BorderThickness="1"
+            CornerRadius="20"
+            Padding="10"
+            InputTransparent="False">
+
+            <telerik:RadBorder.Shadow>
+                <Shadow Brush="#80000000" Offset="0,6" Radius="10" Opacity="0.35" />
+            </telerik:RadBorder.Shadow>
+
+            <!-- 横に収まらない場合は横スクロール -->
+            <ScrollView
+                Orientation="Horizontal"
+                HorizontalScrollBarVisibility="Never"
+                InputTransparent="False">
+
+                <HorizontalStackLayout
+                    Spacing="10"
+                    BindableLayout.ItemsSource="{Binding ItemsSource, Source={x:Reference Root}}">
+
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <controls:FloatingTabItem
+                                WidthRequest="{Binding ItemWidth, Source={x:Reference Root}}"
+                                HeightRequest="{Binding ItemHeight, Source={x:Reference Root}}"
+                                Text="{Binding Text}"
+                                IconText="{Binding IconText}"
+                                Command="{Binding Command}"
+                                CommandParameter="{Binding CommandParameter}"
+                                IsSelected="{Binding IsSelected, Mode=OneWay}" />
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+
+                </HorizontalStackLayout>
+            </ScrollView>
+
+        </telerik:RadBorder>
+    </Grid>
+</ContentView>

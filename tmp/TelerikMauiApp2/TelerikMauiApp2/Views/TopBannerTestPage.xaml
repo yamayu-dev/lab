@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+             x:Class="TelerikMauiApp2.Views.TopBannerTestPage"
+             Title="トップバナー検証ページ">
+
+    <Grid>
+        <!-- メインコンテンツ -->
+        <ScrollView>
+            <VerticalStackLayout
+                Spacing="25" 
+                Padding="30,0" 
+                VerticalOptions="Center">
+
+                <Label
+                    Text="トップバナー検証"
+                    Style="{StaticResource Headline}"
+                    SemanticProperties.HeadingLevel="Level1"
+                    FontSize="32"
+                    HorizontalOptions="Center" />
+
+                <Label
+                    Text="画面上部に通知バナーを表示する各種方法のテスト"
+                    Style="{StaticResource SubHeadline}"
+                    SemanticProperties.HeadingLevel="Level2"
+                    FontSize="16"
+                    HorizontalOptions="Center" />
+
+                <Button Text="(Toolkit) Toast"
+                    Clicked="OnShowToolkitTopToastClicked"
+                    BackgroundColor="#1565C0"
+                    TextColor="White"
+                    CornerRadius="8"
+                    Padding="20,10"
+                    Margin="0,20,0,10"
+                    HorizontalOptions="Center" />
+
+                <Button Text="(Toolkit) Snackbar"
+                    Clicked="OnShowToolkitTopSnackbarClicked"
+                    BackgroundColor="#6A1B9A"
+                    TextColor="White"
+                    CornerRadius="8"
+                    Padding="20,10"
+                    Margin="0,0,0,10"
+                    HorizontalOptions="Center" />
+
+                <Button Text="上部Snackbar"
+                    Clicked="OnShowTopBannerClicked"
+                    BackgroundColor="#2E7D32"
+                    TextColor="White"
+                    CornerRadius="8"
+                    Padding="20,10"
+                    Margin="0,0,0,10"
+                    HorizontalOptions="Center" />
+
+                <Button Text="WindowOverlay"
+                    Clicked="OnShowTopBannerViaWindowOverlayClicked"
+                    BackgroundColor="#EF6C00"
+                    TextColor="White"
+                    CornerRadius="8"
+                    Padding="20,10"
+                    Margin="0,0,0,20"
+                    HorizontalOptions="Center" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- 上部固定バナー（疑似Snackbar）: CommunityToolkit Snackbar は上部固定ができないので自前で実装 -->
+        <Grid
+            x:Name="TopSnackbarHost"
+            IsVisible="False"
+            InputTransparent="True"
+            ZIndex="100"
+            Padding="16,0,16,0"
+            VerticalOptions="Start"
+            HorizontalOptions="Fill">
+
+            <!--
+              iOS のノッチ / Android のステータスバー等の「セーフエリア」ぶん、
+              バナーを少し下げるためのスペーサー。
+              余白はコードビハインドでプラットフォーム別に計算して入れています。
+            -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- スペーサーは「高さだけ」使う。色が付くと黒帯に見えるので常に透明に固定 -->
+            <BoxView x:Name="TopSnackbarSafeAreaSpacer" HeightRequest="0" BackgroundColor="Transparent" />
+
+            <telerik:RadBorder
+                x:Name="TopSnackbar"
+                Grid.Row="1"
+                InputTransparent="False"
+                BackgroundColor="#1F1F1F"
+                BorderColor="#1F1F1F"
+                CornerRadius="12"
+                Padding="14,10"
+                HorizontalOptions="Fill">
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                    <Label
+                        x:Name="TopSnackbarText"
+                        TextColor="White"
+                        FontSize="14"
+                        LineBreakMode="TailTruncation"
+                        VerticalOptions="Center" />
+                    <Button
+                        x:Name="TopSnackbarActionButton"
+                        Grid.Column="1"
+                        Text="OK"
+                        Padding="10,6"
+                        BackgroundColor="Transparent"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        Clicked="OnTopSnackbarActionClicked" />
+                </Grid>
+            </telerik:RadBorder>
+        </Grid>
+
+    </Grid>
+
+</ContentPage>

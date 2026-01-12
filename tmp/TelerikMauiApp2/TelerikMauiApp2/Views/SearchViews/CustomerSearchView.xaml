@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+             xmlns:vm="clr-namespace:TelerikMauiApp2.ViewModels"
+             xmlns:models="clr-namespace:TelerikMauiApp2.Models"
+             x:Class="TelerikMauiApp2.Views.SearchViews.CustomerSearchView"
+             x:DataType="vm:CustomerSearchViewModel"
+             x:Name="Root">
+    
+    <Grid Padding="16" RowSpacing="12" BackgroundColor="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <!-- ヘッダー -->
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
+            <Label Text="得意先検索" 
+                   FontSize="20" 
+                   FontAttributes="Bold"
+                   VerticalOptions="Center" />
+            <Button Grid.Column="1" 
+                    Text="✕" 
+                    FontSize="24"
+                    BackgroundColor="Transparent"
+                    TextColor="#424242"
+                    Command="{Binding CloseCommand}"
+                    Padding="8" />
+        </Grid>
+        
+        <!-- 検索ボックス -->
+        <telerik:RadEntry Grid.Row="1" 
+                         Placeholder="得意先名を入力してください" 
+                         Text="{Binding SearchText}"
+                         ClearButtonVisibility="WhileEditing"
+                         FontSize="16" />
+        
+        <!-- 検索結果リスト -->
+        <ScrollView Grid.Row="2">
+            <VerticalStackLayout Spacing="8" Padding="0,8">
+                <Label Text="{Binding ResultMessage}"
+                       IsVisible="{Binding HasNoResults}"
+                       TextColor="#888888"
+                       HorizontalOptions="Center"
+                       Margin="0,20,0,0" />
+                
+                <CollectionView ItemsSource="{Binding SearchResults}"
+                                IsVisible="{Binding HasResults}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Customer">
+                            <telerik:RadBorder BorderColor="#E0E0E0"
+                                             BorderThickness="1"
+                                             CornerRadius="8"
+                                             Margin="0,4"
+                                             Padding="12">
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                                    <VerticalStackLayout Grid.Column="0" Spacing="4">
+                                        <Label Text="{Binding Name}" 
+                                               FontSize="16"
+                                               FontAttributes="Bold" />
+                                        <Label Text="{Binding Code}" 
+                                               FontSize="14"
+                                               TextColor="#666666" />
+                                        <Label Text="{Binding Address}" 
+                                               FontSize="14"
+                                               TextColor="#888888" />
+                                    </VerticalStackLayout>
+                                    <Button Grid.Column="1"
+                                            Text="選択"
+                                            BackgroundColor="#512BD4"
+                                            TextColor="White"
+                                            CornerRadius="6"
+                                            Padding="16,8"
+                                            VerticalOptions="Center"
+                                            Command="{Binding BindingContext.SelectItemCommand, Source={x:Reference Root}}"
+                                            CommandParameter="{Binding .}" />
+                                </Grid>
+                            </telerik:RadBorder>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentView>

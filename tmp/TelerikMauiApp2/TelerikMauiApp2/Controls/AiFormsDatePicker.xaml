@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TelerikMauiApp2.Controls.AiFormsDatePicker"
+    xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+    xmlns:aiforms="clr-namespace:AiForms.Dialogs;assembly=AiForms.Maui.Dialogs"
+    xmlns:controls="clr-namespace:TelerikMauiApp2.Controls"
+             x:Name="Control">
+
+    <Grid>
+        <Label
+           Padding="12"
+           BackgroundColor="#F5F5F5"
+           TextColor="#333333"
+           FontSize="16"
+           VerticalTextAlignment="Center"
+           HorizontalTextAlignment="Start"
+            Text="AiForms">
+
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ShowCalendarCommand, Source={Reference Control}}" />
+            </Label.GestureRecognizers>
+        </Label>
+    </Grid>
+</ContentView>

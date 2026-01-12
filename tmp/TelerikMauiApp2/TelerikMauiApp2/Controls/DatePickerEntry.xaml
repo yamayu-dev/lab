@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Label xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+       x:Class="TelerikMauiApp2.Controls.DatePickerEntry"
+       x:Name="this"
+       VerticalTextAlignment="Center"
+       HorizontalTextAlignment="Start">
+    
+    <Label.GestureRecognizers>
+        <TapGestureRecognizer Command="{Binding ShowCalendarCommand}" />
+    </Label.GestureRecognizers>
+    
+    <!-- RadPopup.Popupアタッチドプロパティを使用 -->
+    <telerik:RadPopup.Popup>
+        <telerik:RadPopup x:Name="calendarPopup"
+                         OutsideBackgroundColor="#80000000"
+                         Placement="Center">
+            <telerik:RadBorder BackgroundColor="White"
+                              CornerRadius="10"
+                              Padding="20"
+                              ZIndex="999999">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="日付を選択"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"/>
+                    
+                    <telerik:RadCalendar x:Name="calendar"
+                                        HeightRequest="350"
+                                        WidthRequest="350"
+                                        SelectionChanged="OnCalendarSelectionChanged"/>
+                    
+                    <Button Text="閉じる"
+                        Command="{Binding CloseCommand}"
+                           BackgroundColor="#512BD4"
+                           TextColor="White"
+                           CornerRadius="5"
+                           Padding="15,10"/>
+                </VerticalStackLayout>
+            </telerik:RadBorder>
+        </telerik:RadPopup>
+    </telerik:RadPopup.Popup>
+    
+</Label>
