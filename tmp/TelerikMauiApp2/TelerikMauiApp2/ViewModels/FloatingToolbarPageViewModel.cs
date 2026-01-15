@@ -7,10 +7,8 @@ using TelerikMauiApp2.Models;
 
 namespace TelerikMauiApp2.ViewModels;
 
-public partial class BottomSheetTabPageViewModel : ObservableObject
+public partial class FloatingToolbarPageViewModel : ObservableObject
 {
-    public IReadOnlyList<FloatingTabItemModel> DockTabs { get; }
-
     [ObservableProperty]
     private string selectedInfo = "BottomSheetを開いてタブを選択してください";
 
@@ -61,15 +59,8 @@ public partial class BottomSheetTabPageViewModel : ObservableObject
     [ObservableProperty]
     private object? modalContentViewModel;
 
-    public BottomSheetTabPageViewModel()
+    public FloatingToolbarPageViewModel()
     {
-        DockTabs = new List<FloatingTabItemModel>
-        {
-            new() { Text = "Home", IconText = "🏠", Command = SelectDockTabCommand, CommandParameter = DockTab.Home },
-            new() { Text = "Settings", IconText = "⚙", Command = SelectDockTabCommand, CommandParameter = DockTab.Settings },
-            new() { Text = "Info", IconText = "ℹ", Command = SelectDockTabCommand, CommandParameter = DockTab.Info },
-        };
-
         ApplyDockSelection();
     }
 
@@ -80,9 +71,24 @@ public partial class BottomSheetTabPageViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void SelectDockTab(DockTab tab)
+    private void SelectDockTab(object parameter)
     {
-        SelectedDockTab = tab;
+        var maxTabValue = (int)DockTab.Info; // Last enum value
+        
+        if (parameter is int index)
+        {
+            if (index >= 0 && index <= maxTabValue)
+                SelectedDockTab = (DockTab)index;
+        }
+        else if (parameter is string strIndex && int.TryParse(strIndex, out int parsedIndex))
+        {
+            if (parsedIndex >= 0 && parsedIndex <= maxTabValue)
+                SelectedDockTab = (DockTab)parsedIndex;
+        }
+        else if (parameter is DockTab tab)
+        {
+            SelectedDockTab = tab;
+        }
     }
 
     private void ApplyDockSelection()

@@ -43,6 +43,14 @@ namespace TelerikMauiApp2
             builder.Services.AddTransient<BottomSheetTabPageViewModel>();
             builder.Services.AddTransient<BottomSheetTabPage>();
 
+            // FloatingToolbarPage / ViewModel
+            builder.Services.AddTransient<FloatingToolbarPageViewModel>();
+            builder.Services.AddTransient<FloatingToolbarPage>();
+
+            // SideDrawerPage / ViewModel
+            builder.Services.AddTransient<SideDrawerPageViewModel>();
+            builder.Services.AddTransient<SideDrawerPage>();
+
             return builder.Build();
         }
     }

@@ -23,6 +23,8 @@
                 // (ここで1回だけ)
                 _bindingContextResolver.Register<MainPage, ViewModels.MainPageViewModel>();
                 _bindingContextResolver.Register<Views.BottomSheetTabPage, ViewModels.BottomSheetTabPageViewModel>();
+                _bindingContextResolver.Register<Views.FloatingToolbarPage, ViewModels.FloatingToolbarPageViewModel>();
+                _bindingContextResolver.Register<Views.SideDrawerPage, ViewModels.SideDrawerPageViewModel>();
                 _bindingMapInitialized = true;
             }
 

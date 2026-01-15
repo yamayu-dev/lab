@@ -37,6 +37,18 @@ namespace TelerikMauiApp2.ViewModels
         }
 
         [RelayCommand]
+        private Task OpenFloatingToolbar()
+        {
+            return _navigation.PushAsync<FloatingToolbarPage>();
+        }
+
+        [RelayCommand]
+        private Task OpenSideDrawer()
+        {
+            return _navigation.PushAsync<SideDrawerPage>();
+        }
+
+        [RelayCommand]
         private Task OpenTopBannerTest()
         {
             return _navigation.PushAsync(new TopBannerTestPage());

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+             xmlns:vm="clr-namespace:TelerikMauiApp2.ViewModels"
+             xmlns:models="clr-namespace:TelerikMauiApp2.Models"
+             xmlns:controls="clr-namespace:TelerikMauiApp2.Controls"
+             x:Class="TelerikMauiApp2.Views.SideDrawerPage"
+             x:DataType="vm:SideDrawerPageViewModel"
+             Title="Side Drawer">
+
+    <telerik:RadSideDrawer x:Name="Drawer"
+                           DrawerLength="300"
+                           DrawerLocation="Right"
+                           DrawerTransitionType="SlideInOnTop"
+                           IsOpen="{Binding IsDrawerOpen, Mode=TwoWay}"
+                           TapOutsideToClose="False"
+                           AreGesturesEnabled="False">
+        
+        <!-- Main Content -->
+        <telerik:RadSideDrawer.MainContent>
+            <Grid>
+                <telerik:RadCollectionView ItemsSource="{Binding Items}"
+                                          SelectionMode="None">
+                    <telerik:RadCollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:DrawerItemModel">
+                            <telerik:RadBorder Padding="12"
+                                             Margin="8"
+                                             BorderColor="#E0E0E0"
+                                             BorderThickness="1"
+                                             CornerRadius="8"
+                                             BackgroundColor="White">
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <VerticalStackLayout Grid.Column="1" Spacing="4">
+                                        <Label Text="{Binding Title}"
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               TextColor="#333333" />
+                                        <Label Text="{Binding Subtitle}"
+                                               FontSize="12"
+                                               TextColor="#666666" />
+                                    </VerticalStackLayout>
+                                    <Label Grid.Column="2"
+                                           Text="▶"
+                                           FontSize="16"
+                                           TextColor="#999999"
+                                           VerticalOptions="Center" />
+                                </Grid>
+                                <telerik:RadBorder.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SideDrawerPageViewModel}}, Path=OpenDrawerCommand}"
+                                                         CommandParameter="{Binding .}" />
+                                </telerik:RadBorder.GestureRecognizers>
+                            </telerik:RadBorder>
+                        </DataTemplate>
+                    </telerik:RadCollectionView.ItemTemplate>
+                </telerik:RadCollectionView>
+            </Grid>
+        </telerik:RadSideDrawer.MainContent>
+
+        <!-- Drawer Content -->
+        <telerik:RadSideDrawer.DrawerContent>
+            <Grid BackgroundColor="White" Padding="16">
+                <Grid RowDefinitions="Auto,*,Auto">
+                    <!-- Header -->
+                    <Grid Grid.Row="0" Margin="0,0,0,16">
+                        <VerticalStackLayout HorizontalOptions="Start" Spacing="4">
+                            <Label Text="詳細情報"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="#333333" />
+                            <Label Text="{Binding SelectedItem.Title}"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   TextColor="#000000"
+                                   IsVisible="{Binding HasSelectedItem}" />
+                        </VerticalStackLayout>
+                        <Button Text="✕"
+                                Command="{Binding CloseDrawerCommand}"
+                                BackgroundColor="#FF5252"
+                                TextColor="White"
+                                WidthRequest="40"
+                                HeightRequest="40"
+                                CornerRadius="20"
+                                HorizontalOptions="End"
+                                VerticalOptions="Start" />
+                    </Grid>
+
+                    <!-- Content -->
+                    <ScrollView Grid.Row="1">
+                        <VerticalStackLayout Spacing="16" IsVisible="{Binding HasSelectedItem}">
+                            <telerik:RadBorder BorderColor="#E0E0E0"
+                                             BorderThickness="1"
+                                             CornerRadius="8"
+                                             Padding="16"
+                                             BackgroundColor="White">
+                                 <VerticalStackLayout Spacing="8">
+                                    <Label Text="{Binding SelectedItem.Icon}"
+                                           FontSize="48"
+                                           HorizontalOptions="Center" />
+                                    <Label Text="{Binding SelectedItem.Title}"
+                                           FontSize="18"
+                                           FontAttributes="Bold"
+                                           TextColor="#000000"
+                                           HorizontalTextAlignment="Center" />
+                                    <Label Text="{Binding SelectedItem.Subtitle}"
+                                           FontSize="14"
+                                           TextColor="#555555"
+                                           HorizontalTextAlignment="Center" />
+                                </VerticalStackLayout>
+                            </telerik:RadBorder>
+
+                            <telerik:RadBorder BorderColor="#E0E0E0"
+                                             BorderThickness="1"
+                                             CornerRadius="8"
+                                             Padding="16"
+                                             BackgroundColor="White">
+                                <VerticalStackLayout Spacing="12">
+                                    <Label Text="説明" FontAttributes="Bold" TextColor="#000000" FontSize="16" />
+                                    <Label Text="{Binding SelectedItem.Description}"
+                                           TextColor="#333333"
+                                           FontSize="14"
+                                           LineBreakMode="WordWrap" />
+                                </VerticalStackLayout>
+                            </telerik:RadBorder>
+
+                            <telerik:RadBorder BorderColor="#E0E0E0"
+                                             BorderThickness="1"
+                                             CornerRadius="8"
+                                             Padding="16"
+                                             BackgroundColor="White">
+                                <VerticalStackLayout Spacing="12">
+                                    <Label Text="詳細" FontAttributes="Bold" TextColor="#000000" FontSize="16" />
+                                    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="12" RowSpacing="8">
+                                        <Label Grid.Row="0" Grid.Column="0" Text="カテゴリ:" TextColor="#555555" FontSize="14" />
+                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding SelectedItem.Category}" TextColor="#000000" FontSize="14" FontAttributes="Bold" />
+                                        
+                                        <Label Grid.Row="1" Grid.Column="0" Text="作成日:" TextColor="#555555" FontSize="14" />
+                                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding SelectedItem.CreatedDate, StringFormat='{0:yyyy/MM/dd}'}" TextColor="#000000" FontSize="14" FontAttributes="Bold" />
+                                        
+                                        <Label Grid.Row="2" Grid.Column="0" Text="ステータス:" TextColor="#555555" FontSize="14" />
+                                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding SelectedItem.Status}" TextColor="#000000" FontSize="14" FontAttributes="Bold" />
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </telerik:RadBorder>
+                        </VerticalStackLayout>
+                    </ScrollView>
+
+                    <!-- Footer -->
+                    <Button Grid.Row="2"
+                            Text="アクションを実行"
+                            Command="{Binding ExecuteActionCommand}"
+                            BackgroundColor="#512BD4"
+                            TextColor="White"
+                            CornerRadius="8"
+                            Padding="14,10"
+                            Margin="0,16,0,0"
+                            IsVisible="{Binding HasSelectedItem}" />
+                </Grid>
+            </Grid>
+        </telerik:RadSideDrawer.DrawerContent>
+    </telerik:RadSideDrawer>
+
+</ContentPage>

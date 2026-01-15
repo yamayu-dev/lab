@@ -62,6 +62,24 @@
                     Margin="0,0,0,20"
                     HorizontalOptions="Center" />
 
+                <Button Text="Floating Toolbar (Telerik)"
+                    Command="{Binding OpenFloatingToolbarCommand}"
+                    BackgroundColor="#9C27B0"
+                    TextColor="White"
+                    CornerRadius="8"
+                    Padding="20,10"
+                    Margin="0,0,0,20"
+                    HorizontalOptions="Center" />
+
+                <Button Text="Side Drawer (コレクション)"
+                    Command="{Binding OpenSideDrawerCommand}"
+                    BackgroundColor="#E91E63"
+                    TextColor="White"
+                    CornerRadius="8"
+                    Padding="20,10"
+                    Margin="0,0,0,20"
+                    HorizontalOptions="Center" />
+
                 <Button Text="トップバナー検証ページ"
                     Command="{Binding OpenTopBannerTestCommand}"
                     BackgroundColor="#00897B"
