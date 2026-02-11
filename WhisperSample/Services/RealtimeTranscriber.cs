@@ -10,6 +10,12 @@ public sealed class RealtimeTranscriber : IAsyncDisposable
 
     private IAudioStreamSource? _source;
 
+    /// <summary>
+    /// RMS がこの閾値未満なら無音とみなして推論をスキップする。
+    /// Whisper の hallucination（「ご視聴ありがとうございました」等）の前段防止。
+    /// </summary>
+    private const float SilenceRmsThreshold = 0.005f;
+
     public RealtimeTranscriber(Func<IAudioStreamSource> streamSourceFactory, WhisperTranscriptionService whisper)
     {
         _streamSourceFactory = streamSourceFactory;
@@ -22,22 +28,23 @@ public sealed class RealtimeTranscriber : IAsyncDisposable
     {
         _source = _streamSourceFactory();
 
-        var pcmBuffer = new List<byte>(capacity: 16000 * 2 * 20);
+        // 16 kHz mono Float32 — サンプル数でカウント
+        var buffer = new List<float>(capacity: 16000 * 20);
 
-        void OnChunk(object? s, PcmChunkEventArgs e)
+        void OnChunk(object? s, AudioChunkEventArgs e)
         {
-            lock (pcmBuffer)
+            lock (buffer)
             {
-                pcmBuffer.AddRange(e.Pcm16Le.AsSpan(0, e.Bytes).ToArray());
+                buffer.AddRange(e.Samples.AsSpan(0, e.Count).ToArray());
 
-                // 最大40秒ぶん程度に制限
-                const int maxBufferBytes = 16000 * 2 * 40;
-                if (pcmBuffer.Count > maxBufferBytes)
-                    pcmBuffer.RemoveRange(0, pcmBuffer.Count - maxBufferBytes);
+                // 最大 40 秒ぶんに制限
+                const int maxSamples = 16000 * 40;
+                if (buffer.Count > maxSamples)
+                    buffer.RemoveRange(0, buffer.Count - maxSamples);
             }
         }
 
-        _source.PcmChunk += OnChunk;
+        _source.AudioChunkReady += OnChunk;
 
         try
         {
@@ -47,32 +54,38 @@ public sealed class RealtimeTranscriber : IAsyncDisposable
             {
                 await Task.Delay(interval, ct);
 
-                byte[] snapshot;
-                lock (pcmBuffer)
+                float[] snapshot;
+                lock (buffer)
                 {
-                    snapshot = pcmBuffer.ToArray();
+                    snapshot = buffer.ToArray();
                 }
 
-                // 2秒未満はスキップ
-                if (snapshot.Length < 16000 * 2 * 2)
+                // 2 秒未満はスキップ
+                if (snapshot.Length < 16000 * 2)
                     continue;
 
-                // AudioStreamSource は常に 16kHz/モノ/PCM16 を出力する
-                var text = await _whisper.TranscribePcm16LeAsync(snapshot, 16000, 1, ct);
-                
+                // 無音（RMS が閾値未満）なら推論自体をスキップ
+                if (CalculateRms(snapshot) < SilenceRmsThreshold)
+                {
+                    lock (buffer)
+                        buffer.Clear();
+                    continue;
+                }
+
+                var text = await _whisper.TranscribeAsync(snapshot, ct);
+
                 if (!string.IsNullOrWhiteSpace(text))
                 {
                     yield return text;
 
-                    // 推論したらバッファをクリア
-                    lock (pcmBuffer)
-                        pcmBuffer.Clear();
+                    lock (buffer)
+                        buffer.Clear();
                 }
             }
         }
         finally
         {
-            _source.PcmChunk -= OnChunk;
+            _source.AudioChunkReady -= OnChunk;
             await _source.StopAsync(CancellationToken.None);
         }
     }
@@ -83,5 +96,14 @@ public sealed class RealtimeTranscriber : IAsyncDisposable
             await _source.DisposeAsync();
 
         _whisper.Dispose();
+    }
+
+    private static float CalculateRms(float[] samples)
+    {
+        if (samples.Length == 0) return 0f;
+        double sum = 0;
+        for (int i = 0; i < samples.Length; i++)
+            sum += (double)samples[i] * samples[i];
+        return (float)Math.Sqrt(sum / samples.Length);
     }
 }

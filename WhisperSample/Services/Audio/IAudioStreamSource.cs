@@ -8,21 +8,27 @@ public interface IAudioStreamSource : IAsyncDisposable
 
     Task StopAsync(CancellationToken ct = default);
 
-    event EventHandler<PcmChunkEventArgs>? PcmChunk;
+    /// <summary>
+    /// 16 kHz / mono / Float32 の正規化済み音声チャンクを通知する。
+    /// </summary>
+    event EventHandler<AudioChunkEventArgs>? AudioChunkReady;
 }
 
-public sealed class PcmChunkEventArgs : EventArgs
+/// <summary>
+/// 16 kHz mono Float32 ([-1,1]) の音声チャンク。
+/// Whisper.net の ProcessAsync(float[]) にそのまま渡せる形式。
+/// </summary>
+public sealed class AudioChunkEventArgs : EventArgs
 {
-    public PcmChunkEventArgs(byte[] pcm16le, int bytes, int sampleRate, short channels)
+    public AudioChunkEventArgs(float[] samples, int count)
     {
-        Pcm16Le = pcm16le;
-        Bytes = bytes;
-        SampleRate = sampleRate;
-        Channels = channels;
+        Samples = samples;
+        Count = count;
     }
 
-    public byte[] Pcm16Le { get; }
-    public int Bytes { get; }
-    public int SampleRate { get; }
-    public short Channels { get; }
+    /// <summary>有効なサンプルを含むバッファ。Count 個まで有効。</summary>
+    public float[] Samples { get; }
+
+    /// <summary>Samples 内の有効サンプル数。</summary>
+    public int Count { get; }
 }

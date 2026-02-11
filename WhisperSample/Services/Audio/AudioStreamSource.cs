@@ -3,7 +3,7 @@ namespace WhisperSample.Services.Audio;
 // 非iOS向けスタブ（iOSでは `.ios.cs` 側の AudioStreamSource が使用される想定）
 public sealed class UnsupportedAudioStreamSource : IAudioStreamSource
 {
-    public event EventHandler<PcmChunkEventArgs>? PcmChunk;
+    public event EventHandler<AudioChunkEventArgs>? AudioChunkReady;
 
     public ValueTask DisposeAsync() => ValueTask.CompletedTask;
 

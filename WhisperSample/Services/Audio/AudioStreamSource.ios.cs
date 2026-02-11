@@ -1,5 +1,6 @@
 using AVFoundation;
 using Foundation;
+using System.Buffers;
 using System.Runtime.InteropServices;
 
 namespace WhisperSample.Services.Audio;
@@ -9,45 +10,44 @@ public sealed class AudioStreamSource : IAudioStreamSource
     private readonly AVAudioEngine _engine = new();
     private bool _started;
 
-    public event EventHandler<PcmChunkEventArgs>? PcmChunk;
+    // AVAudioConverter はフォーマットが変わらない限り再利用する
+    private AVAudioFormat? _cachedInputFormat;
+    private AVAudioConverter? _downmixConverter;   // input → mono Float32 (same rate)
+    private AVAudioConverter? _resampleConverter;   // mono Float32 → mono Float32 16kHz
+
+    private static readonly AVAudioFormat TargetFormat =
+        new(AVAudioCommonFormat.PCMFloat32, 16000, 1, false);
+
+    public event EventHandler<AudioChunkEventArgs>? AudioChunkReady;
 
     public async Task<bool> EnsurePermissionsAsync(CancellationToken ct = default)
     {
         var session = AVAudioSession.SharedInstance();
 
-        // すでに決まっているなら即返す
         if (session.RecordPermission == AVAudioSessionRecordPermission.Granted)
             return true;
         if (session.RecordPermission == AVAudioSessionRecordPermission.Denied)
             return false;
 
-        // Undetermined の場合は、ユーザー操作で確定するまで待つ
         var tcs = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
         session.RequestRecordPermission(granted => tcs.TrySetResult(granted));
 
         using var reg = ct.Register(() => tcs.TrySetCanceled(ct));
-        try
-        {
-            return await tcs.Task;
-        }
-        catch (OperationCanceledException)
-        {
-            return false;
-        }
+        try { return await tcs.Task; }
+        catch (OperationCanceledException) { return false; }
     }
 
     public async Task StartAsync(CancellationToken ct = default)
     {
-        if (_started)
-            return;
+        if (_started) return;
 
-        var ok = await EnsurePermissionsAsync(ct);
-        if (!ok)
+        if (!await EnsurePermissionsAsync(ct))
             throw new UnauthorizedAccessException("Microphone permission was not granted.");
 
         var session = AVAudioSession.SharedInstance();
         NSError? err;
-        session.SetCategory(AVAudioSessionCategory.PlayAndRecord, AVAudioSessionCategoryOptions.DefaultToSpeaker, out err);
+        session.SetCategory(AVAudioSessionCategory.PlayAndRecord,
+                            AVAudioSessionCategoryOptions.DefaultToSpeaker, out err);
         if (err != null) throw new NSErrorException(err);
         session.SetMode(AVAudioSessionMode.Default, out err);
         if (err != null) throw new NSErrorException(err);
@@ -60,23 +60,23 @@ public sealed class AudioStreamSource : IAudioStreamSource
         if (err != null) throw new NSErrorException(err);
 
         var inputNode = _engine.InputNode;
-        var format = inputNode.GetBusOutputFormat(0);
+        var inputFormat = inputNode.GetBusOutputFormat(0);
+
+        // tap 開始前に converter を準備
+        EnsureConverters(inputFormat);
 
         inputNode.RemoveTapOnBus(0);
-        inputNode.InstallTapOnBus(0, 1024, format, (buffer, _) =>
+        inputNode.InstallTapOnBus(0, 4096, inputFormat, (buffer, _) =>
         {
             try
             {
-                // 入力を 16kHz mono PCM16 に統一してから発火
-                var pcm16kMono = ConvertTo16kMonoPcm16Le(buffer);
-                if (pcm16kMono.Length > 0)
-                {
-                    PcmChunk?.Invoke(this, new PcmChunkEventArgs(pcm16kMono, pcm16kMono.Length, 16000, 1));
-                }
+                var floats = ConvertToMono16kFloat(buffer);
+                if (floats != null && floats.Length > 0)
+                    AudioChunkReady?.Invoke(this, new AudioChunkEventArgs(floats, floats.Length));
             }
             catch
             {
-                // tapスレッド例外でエンジンが落ちるのを避ける
+                // tap スレッド例外でエンジンが落ちるのを避ける
             }
         });
 
@@ -89,8 +89,7 @@ public sealed class AudioStreamSource : IAudioStreamSource
 
     public Task StopAsync(CancellationToken ct = default)
     {
-        if (!_started)
-            return Task.CompletedTask;
+        if (!_started) return Task.CompletedTask;
 
         _engine.InputNode.RemoveTapOnBus(0);
         _engine.Stop();
@@ -100,181 +99,129 @@ public sealed class AudioStreamSource : IAudioStreamSource
 
     public ValueTask DisposeAsync()
     {
-        try
-        {
-            _engine.InputNode.RemoveTapOnBus(0);
-        }
-        finally
-        {
-            _engine.Stop();
-            _engine.Dispose();
-        }
+        try { _engine.InputNode.RemoveTapOnBus(0); } catch { }
+        _engine.Stop();
+        _engine.Dispose();
+        DisposeConverters();
         return ValueTask.CompletedTask;
     }
 
-    private byte[] ConvertTo16kMonoPcm16Le(AVAudioPcmBuffer inBuffer)
+    // ── 変換パイプライン ──────────────────────────────
+
+    /// <summary>
+    /// 入力 AVAudioPcmBuffer → 16 kHz / mono / Float32 の float[] を返す。
+    /// </summary>
+    private float[]? ConvertToMono16kFloat(AVAudioPcmBuffer inBuffer)
     {
-        if (inBuffer.FrameLength <= 0)
-            return Array.Empty<byte>();
+        if (inBuffer.FrameLength <= 0) return null;
 
-        var currentFormat = inBuffer.Format;
+        var fmt = inBuffer.Format;
+        EnsureConverters(fmt);
 
-        if (Math.Abs(currentFormat.SampleRate - 16000.0) < 0.1 &&
-            currentFormat.ChannelCount == 1 &&
-            currentFormat.CommonFormat == AVAudioCommonFormat.PCMInt16)
-        {
-            return ExtractPcm16LeInterleaved(inBuffer);
-        }
-
-        AVAudioPcmBuffer currentBuffer = inBuffer;
-        AVAudioPcmBuffer? ownedMonoBuffer = null;
-        AVAudioPcmBuffer? ownedResampledBuffer = null;
+        AVAudioPcmBuffer current = inBuffer;
+        AVAudioPcmBuffer? ownedMono = null;
+        AVAudioPcmBuffer? ownedResampled = null;
 
         try
         {
-            // Step 1: downmix to mono Float32 if needed.
-            if (currentFormat.ChannelCount != 1 || currentFormat.CommonFormat != AVAudioCommonFormat.PCMFloat32)
+            // Step 1: mono Float32 化（必要なとき）
+            if (fmt.ChannelCount != 1 || fmt.CommonFormat != AVAudioCommonFormat.PCMFloat32)
             {
-                var monoFormat = new AVAudioFormat(AVAudioCommonFormat.PCMFloat32, currentFormat.SampleRate, 1, false);
-                using var downConverter = new AVAudioConverter(currentFormat, monoFormat);
-                downConverter.PrimeMethod = AVAudioConverterPrimeMethod.None;
-                var monoBuffer = new AVAudioPcmBuffer(monoFormat, currentBuffer.FrameLength);
-                monoBuffer.FrameLength = 0;
-                ownedMonoBuffer = monoBuffer;
-                
-                bool fed = false;
-                downConverter.ConvertToBuffer(monoBuffer, out NSError? err, (uint _, out AVAudioConverterInputStatus status) =>
-                {
-                    if (fed)
-                    {
-                        status = AVAudioConverterInputStatus.NoDataNow;
-                        return null;
-                    }
-                    fed = true;
-                    status = AVAudioConverterInputStatus.HaveData;
-                    return currentBuffer;
-                });
-                if (err != null)
-                    throw new NSErrorException(err);
-                
-                if (monoBuffer.FrameLength == 0)
-                    return Array.Empty<byte>();
-                
-                currentBuffer = monoBuffer;
-                currentFormat = monoFormat;
+                var monoFmt = new AVAudioFormat(AVAudioCommonFormat.PCMFloat32, fmt.SampleRate, 1, false);
+                ownedMono = new AVAudioPcmBuffer(monoFmt, current.FrameLength);
+                ownedMono.FrameLength = 0;
+
+                if (!Convert(_downmixConverter!, current, ownedMono))
+                    return null;
+
+                current = ownedMono;
+                fmt = monoFmt;
             }
 
-            // Step 2: resample to 16 kHz if needed.
-            if (Math.Abs(currentFormat.SampleRate - 16000.0) > 0.1)
+            // Step 2: 16 kHz リサンプル（必要なとき）
+            if (Math.Abs(fmt.SampleRate - 16000.0) > 0.1)
             {
-                var resampleFormat = new AVAudioFormat(AVAudioCommonFormat.PCMFloat32, 16000, 1, false);
-                using var resampler = new AVAudioConverter(currentFormat, resampleFormat);
-                resampler.PrimeMethod = AVAudioConverterPrimeMethod.None;
-                double ratio = 16000.0 / currentFormat.SampleRate;
-                uint outCapacity = (uint)Math.Ceiling(currentBuffer.FrameLength * ratio) + 1;
-                var resampledBuffer = new AVAudioPcmBuffer(resampleFormat, outCapacity);
-                resampledBuffer.FrameLength = 0;
-                ownedResampledBuffer = resampledBuffer;
-                
-                bool given = false;
-                resampler.ConvertToBuffer(resampledBuffer, out NSError? err2, (uint _, out AVAudioConverterInputStatus status) =>
-                {
-                    if (given)
-                    {
-                        status = AVAudioConverterInputStatus.NoDataNow;
-                        return null;
-                    }
-                    given = true;
-                    status = AVAudioConverterInputStatus.HaveData;
-                    return currentBuffer;
-                });
-                if (err2 != null)
-                    throw new NSErrorException(err2);
-                
-                if (resampledBuffer.FrameLength == 0)
-                    return Array.Empty<byte>();
-                
-                currentBuffer = resampledBuffer;
-                currentFormat = resampleFormat;
+                double ratio = 16000.0 / fmt.SampleRate;
+                uint capacity = (uint)Math.Ceiling(current.FrameLength * ratio) + 1;
+                ownedResampled = new AVAudioPcmBuffer(TargetFormat, capacity);
+                ownedResampled.FrameLength = 0;
+
+                if (!Convert(_resampleConverter!, current, ownedResampled))
+                    return null;
+
+                current = ownedResampled;
             }
 
-            // Now currentBuffer is mono and 16 kHz, possibly Float32.
-            if (currentFormat.CommonFormat == AVAudioCommonFormat.PCMInt16)
-            {
-                return ExtractPcm16LeInterleaved(currentBuffer);
-            }
-
-            if (currentFormat.CommonFormat == AVAudioCommonFormat.PCMFloat32)
-            {
-                int frames = (int)currentBuffer.FrameLength;
-                var floatPtr = currentBuffer.FloatChannelData;
-                if (floatPtr == IntPtr.Zero)
-                    return Array.Empty<byte>();
-                var ch0Ptr = Marshal.ReadIntPtr(floatPtr, 0);
-                if (ch0Ptr == IntPtr.Zero)
-                    return Array.Empty<byte>();
-
-                // WIP: リングバッファやunsafeを検討
-                var floats = new float[frames];
-                Marshal.Copy(ch0Ptr, floats, 0, frames);
-                var outBytes = new byte[frames * 2];
-                for (int i = 0; i < frames; i++)
-                {
-                    var f = floats[i];
-                    if (f > 1f) f = 1f;
-                    if (f < -1f) f = -1f;
-                    short s = (short)Math.Round(f * short.MaxValue);
-                    outBytes[i * 2] = (byte)(s & 0xFF);
-                    outBytes[i * 2 + 1] = (byte)((s >> 8) & 0xFF);
-                }
-                return outBytes;
-            }
-
-            // As a fallback, extract whatever PCM16LE can be obtained.
-            return ExtractPcm16LeInterleaved(currentBuffer);
+            // Step 3: Float32 バッファからマネージド float[] へコピー
+            return ExtractFloat32(current);
         }
         finally
         {
-            ownedMonoBuffer?.Dispose();
-            ownedResampledBuffer?.Dispose();
+            ownedMono?.Dispose();
+            ownedResampled?.Dispose();
         }
     }
 
-    private static byte[] ExtractPcm16LeInterleaved(AVAudioPcmBuffer buffer)
+    /// <summary>AVAudioConverter で src→dst を変換する。成功なら true。</summary>
+    private static bool Convert(AVAudioConverter converter, AVAudioPcmBuffer src, AVAudioPcmBuffer dst)
     {
-        var frames = (int)buffer.FrameLength;
-        if (frames <= 0)
-            return Array.Empty<byte>();
-
-        var int16Data = buffer.Int16ChannelData;
-        if (int16Data != IntPtr.Zero)
+        bool fed = false;
+        converter.ConvertToBuffer(dst, out NSError? err, (uint _, out AVAudioConverterInputStatus status) =>
         {
-            var data = new byte[frames * 2];
-            Marshal.Copy(int16Data, data, 0, data.Length);
-            return data;
+            if (fed) { status = AVAudioConverterInputStatus.NoDataNow; return null; }
+            fed = true;
+            status = AVAudioConverterInputStatus.HaveData;
+            return src;
+        });
+        return err == null && dst.FrameLength > 0;
+    }
+
+    /// <summary>mono Float32 の AVAudioPcmBuffer から float[] を取り出す。</summary>
+    private static float[]? ExtractFloat32(AVAudioPcmBuffer buffer)
+    {
+        int frames = (int)buffer.FrameLength;
+        if (frames <= 0) return null;
+
+        var chDataPtr = buffer.FloatChannelData;
+        if (chDataPtr == IntPtr.Zero) return null;
+
+        var ch0 = Marshal.ReadIntPtr(chDataPtr, 0);
+        if (ch0 == IntPtr.Zero) return null;
+
+        var result = new float[frames];
+        Marshal.Copy(ch0, result, 0, frames);
+        return result;
+    }
+
+    // ── Converter キャッシュ ───────────────────────────
+
+    private void EnsureConverters(AVAudioFormat inputFormat)
+    {
+        var cached = _cachedInputFormat;
+        if (!ReferenceEquals(cached, null) &&
+            Math.Abs(cached.SampleRate - inputFormat.SampleRate) < 0.1 &&
+            cached.ChannelCount == inputFormat.ChannelCount &&
+            cached.CommonFormat == inputFormat.CommonFormat)
+        {
+            return; // フォーマット変更なし
         }
 
-        var floatData = buffer.FloatChannelData;
-        if (floatData == IntPtr.Zero)
-            return Array.Empty<byte>();
+        DisposeConverters();
+        _cachedInputFormat = inputFormat;
 
-        var ch0Ptr = Marshal.ReadIntPtr(floatData, 0);
-        if (ch0Ptr == IntPtr.Zero)
-            return Array.Empty<byte>();
+        var monoFloat = new AVAudioFormat(AVAudioCommonFormat.PCMFloat32, inputFormat.SampleRate, 1, false);
 
-        var floats = new float[frames];
-        Marshal.Copy(ch0Ptr, floats, 0, frames);
+        _downmixConverter = new AVAudioConverter(inputFormat, monoFloat)
+            { PrimeMethod = AVAudioConverterPrimeMethod.None };
 
-        var outBytes = new byte[frames * 2];
-        for (var i = 0; i < frames; i++)
-        {
-            var f = floats[i];
-            if (f > 1f) f = 1f;
-            if (f < -1f) f = -1f;
-            var s = (short)Math.Round(f * short.MaxValue);
-            outBytes[i * 2] = (byte)(s & 0xFF);
-            outBytes[i * 2 + 1] = (byte)((s >> 8) & 0xFF);
-        }
-        return outBytes;
+        _resampleConverter = new AVAudioConverter(monoFloat, TargetFormat)
+            { PrimeMethod = AVAudioConverterPrimeMethod.None };
+    }
+
+    private void DisposeConverters()
+    {
+        _downmixConverter?.Dispose();  _downmixConverter = null;
+        _resampleConverter?.Dispose(); _resampleConverter = null;
+        _cachedInputFormat = null;
     }
 }

@@ -1,6 +1,4 @@
 ﻿using WhisperSample.Services;
-using WhisperSample.Services.Audio;
-using WhisperSample.Services.Whisper;
 
 namespace WhisperSample;
 
@@ -10,11 +8,7 @@ public partial class MainPage : ContentPage
     private CancellationTokenSource? _cts;
     private Task? _runningTask;
 
-    public MainPage(
-        RealtimeTranscriber transcriber,
-        WhisperModelService modelService,
-        WhisperTranscriptionService whisper,
-        Func<IAudioStreamSource> streamSourceFactory)
+    public MainPage(RealtimeTranscriber transcriber)
     {
         InitializeComponent();
         _transcriber = transcriber;
@@ -59,7 +53,7 @@ public partial class MainPage : ContentPage
             {
                 // stop
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!_cts?.IsCancellationRequested ?? false)
             {
                 await MainThread.InvokeOnMainThreadAsync(() =>
                 {
